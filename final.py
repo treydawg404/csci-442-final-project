@@ -72,7 +72,6 @@ def orient_finish():
                 body = 6000
                 tango.setTarget(BODY,body)
                 print("Entered Mining Area!")
-                return True
 
 
 

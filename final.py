@@ -31,7 +31,7 @@ def orient_finish():
         hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
 
         cv2.namedWindow('RobotVision', cv2.WINDOW_AUTOSIZE)
-        cv2.imshow('RobotVision', color_image) 
+        cv2.imshow('RobotVision', orange_mask) 
         cv2.waitKey(1)
 
 
@@ -74,7 +74,7 @@ def orient_finish():
                 body = 6000
                 tango.setTarget(BODY,body)
                 print("Entered Mining Area!")
-                inMiningArea = True
+                return True
 
 
 

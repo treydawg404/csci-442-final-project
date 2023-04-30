@@ -8,6 +8,7 @@
 #Nathan Parnell, Trey Grossman
 
 def orient_finish():
+    inMiningArea = False
     while(1):
         # Wait for a coherent pair of frames: depth and color
         frames = pipeline.wait_for_frames()

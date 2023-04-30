@@ -13,13 +13,19 @@ import cv2
 import time
 from maestro import Controller
 
+global MOTORS
 MOTORS = 1
+global TURN
 TURN = 2
+global BODY
 BODY = 0
 
 tango = Controller()
+global motors
 motors = 6000
+global turns
 turns = 6000
+global body
 body = 6000
 
 

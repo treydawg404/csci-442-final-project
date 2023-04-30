@@ -30,11 +30,6 @@ def orient_finish():
             images = np.hstack((color_image, depth_colormap))
         hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
 
-        cv2.namedWindow('RobotVision', cv2.WINDOW_AUTOSIZE)
-        cv2.imshow('RobotVision', orange_mask) 
-        cv2.waitKey(1)
-
-
         if(inMiningArea == False):
             orange_lower = np.array([0, 50, 20], np.uint8)
             orange_lower = np.array([0, 200, 20], np.uint8)
@@ -50,6 +45,9 @@ def orient_finish():
 
             distance = depth_frame.get_distance(cX,cY)
 
+            cv2.namedWindow('RobotVision', cv2.WINDOW_AUTOSIZE)
+            cv2.imshow('RobotVision', orange_mask) 
+            cv2.waitKey(1)
 
             if (cX > 370):
                 motors -= 200

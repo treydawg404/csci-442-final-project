@@ -60,7 +60,7 @@ def orient_finish():
             distance = depth_frame.get_distance(cX,cY)
 
         cv2.namedWindow('RobotVision', cv2.WINDOW_AUTOSIZE)
-        cv2.imshow('RobotVision', orange_mask) 
+        cv2.imshow('RobotVision', color_image) 
         cv2.waitKey(1)
 
         if (cX > 370):

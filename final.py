@@ -45,33 +45,34 @@ def orient_finish():
 
             distance = depth_frame.get_distance(cX,cY)
 
-            cv2.namedWindow('RobotVision', cv2.WINDOW_AUTOSIZE)
-            cv2.imshow('RobotVision', color_image) 
-            cv2.waitKey(1)
+        cv2.namedWindow('RobotVision', cv2.WINDOW_AUTOSIZE)
+        cv2.imshow('RobotVision', orange_mask) 
+        cv2.waitKey(1)
 
-            if (cX > 370):
-                motors -= 200
-                if(motors < 5000):
-                    motors = 5000
-                    tango.setTarget(MOTORS, motors)
-            elif (cX < 270):
-                motors += 200
-                if(motors > 7000):
-                    motors = 7000
-                    tango.setTarget(MOTORS, motors)
-            else:
-                motors = 6000
+        if (cX > 370):
+            motors -= 200
+            if(motors < 5000):
+                motors = 5000
                 tango.setTarget(MOTORS, motors)
+        elif (cX < 270):
+            motors += 200
+            if(motors > 7000):
+                motors = 7000
+                tango.setTarget(MOTORS, motors)
+        else:
+            motors = 6000
+            tango.setTarget(MOTORS, motors)
 
-            if(distance > 1.5):
-                motors = 6000
-                tango.setTarget(MOTORS,motors)
-                body = 5200            
-                tango.setTarget(BODY,body)
-            else:
-                body = 6000
-                tango.setTarget(BODY,body)
-                print("Entered Mining Area!")
+        if(distance > 1.5):
+            motors = 6000
+            tango.setTarget(MOTORS,motors)
+            body = 5200            
+            tango.setTarget(BODY,body)
+        else:
+            body = 6000
+            tango.setTarget(BODY,body)
+            print("Entered Mining Area!")
+            return True
 
 
 

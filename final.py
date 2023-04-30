@@ -7,6 +7,22 @@
 
 #Nathan Parnell, Trey Grossman
 
+import pyrealsense2 as rs
+import numpy as np
+import cv2
+import time
+from maestro import Controller
+
+MOTORS = 1
+TURN = 2
+BODY = 0
+
+tango = Controller()
+motors = 6000
+turns = 6000
+body = 6000
+
+
 def orient_finish():
     inMiningArea = False
     while(1):
@@ -73,23 +89,6 @@ def orient_finish():
             tango.setTarget(BODY,body)
             print("Entered Mining Area!")
             return True
-
-
-
-import pyrealsense2 as rs
-import numpy as np
-import cv2
-import time
-from maestro import Controller
-
-MOTORS = 1
-TURN = 2
-BODY = 0
-
-tango = Controller()
-motors = 6000
-turns = 6000
-body = 6000
 
 # Configure depth and color streams
 pipeline = rs.pipeline()

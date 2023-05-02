@@ -211,7 +211,7 @@ def face_find():
 
     headTurn = 4000
     tango.setTarget(HEADTURN, headTurn)
-    headTilt = 6000
+    headTilt = 4000
     tango.setTarget(HEADTILT, headTilt)
 
 
@@ -233,60 +233,6 @@ def face_find():
             # Show images
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
             cv2.imshow('RealSense', color_image)
-            cv2.waitKey(1)
-            
-            if(inMiningArea == True and foundFace == False):
-                gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
-
-                faces = face_cascade.detectMultiScale(gray, 1.3, 5)
-
-                if(len(faces) == 0):
-                    headTurn += 100
-                    if(headTurn > 8000):
-                        headTurn = 4000
-                    tango.setTarget(MOTORS, motors)
-                    time.sleep(1)
-                elif(len(faces) != 0):
-                    print("Found Face!")
-                    for (x,y,w,h) in faces:
-                        cv2.rectangle(color_image,(x,y),(x+w,y+h),(255,0,0),2)
-                    cX = int((x + (w/2)))
-                    cY = int((y + (h/2)))
-
-                    distance = depth_frame.get_distance(cX,cY)
-
-                    if (cX > 370):
-                        motors -= 200
-                        if(motors < 5200):
-                            motors = 5200
-                            tango.setTarget(MOTORS, motors)
-                    elif (cX < 270):
-                        motors += 200
-                        if(motors > 7000):
-                            motors = 7000
-                            tango.setTarget(MOTORS, motors)
-                    else:
-                        motors = 6000
-                        tango.setTarget(MOTORS, motors)
-
-                    if(distance > 1):
-                        motors = 6000
-                        tango.setTarget(MOTORS,motors)
-                        body = 5400            
-                        tango.setTarget(BODY,body)
-                    else:
-                        body = 6000
-                        tango.setTarget(BODY,body)
-                        print("Moved to Face!")
-                        foundFace = True
-            if(inMiningArea == True and foundFace == True and savedColor == None):
-                motors = 6000
-                tango.setTarget(MOTORS,motors)
-                body = 6000
-                tango.setTarget(BODY,body)
-                for x in range(50):
-                    pass
-                return
 
 
     finally:

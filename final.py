@@ -62,25 +62,15 @@ def orient_finish():
         cv2.imshow('RobotVision', color_image) 
         cv2.waitKey(1)
 
-        if (cX > 390):
+        if (cX > 370):
             motors = 5200
             tango.setTarget(MOTORS, motors)
-        elif (cX < 250):
+        elif (cX < 270):
             motors = 6800
             tango.setTarget(MOTORS, motors)
         else:
             motors = 6000
             tango.setTarget(MOTORS, motors)
-
-        if(distance > 1.5):
-            motors = 6000
-            tango.setTarget(MOTORS,motors)
-            body = 5200            
-            tango.setTarget(BODY,body)
-        else:
-            body = 6000
-            tango.setTarget(BODY,body)
-            print("Entered Mining Area!")
 
         print(cX)
 

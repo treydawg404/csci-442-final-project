@@ -86,7 +86,7 @@ def orientation_cone():
 
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
             orange_lower = np.array([10, 250, 50], np.uint8)
-            orange_upper = np.array([30, 255, 255], np.uint8)
+            orange_upper = np.array([60, 255, 255], np.uint8)
             orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
             Moments = cv2.moments(orange_mask)
             if Moments["m00"] != 0:
@@ -335,8 +335,8 @@ def color_find():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
-    yellow_lower = np.array([120, 150, 150], np.uint8)
-    yellow_upper = np.array([140, 255, 200], np.uint8)
+    yellow_lower = np.array([85, 200, 140], np.uint8)
+    yellow_upper = np.array([100, 256, 256], np.uint8)
 
     orange_lower = np.array([0, 50, 50], np.uint8)
     orange_upper = np.array([20, 100, 255], np.uint8)
@@ -376,7 +376,7 @@ def color_find():
 
             orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
         
-            yellow_mask = cv2.inRange(color_image, yellow_lower, yellow_upper)
+            yellow_mask = cv2.inRange(hsv, yellow_lower, yellow_upper)
         
             pink_mask = cv2.inRange(color_image, pink_lower, pink_upper)
 
@@ -398,7 +398,7 @@ def color_find():
             for pic, contour in enumerate(contours):
                 area = cv2.contourArea(contour)
                 if(area > 500):
-                    savedColor = "yellow"
+                    savedColor = "blue"
                     x, y, w, h = cv2.boundingRect(contour)
                     color_image = cv2.rectangle(color_image, (x, y), (x + w, y + h), (51, 255, 255), 2)
                         

@@ -94,11 +94,6 @@ def oreitnation_cone():
             depth_colormap_dim = depth_colormap.shape
             color_colormap_dim = color_image.shape
 
-            # Show images
-            cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
-            cv2.imshow('RealSense', orange_mask)
-            cv2.waitKey(1)
-
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
             orange_lower = np.array([0, 250, 20], np.uint8)
             orange_upper = np.array([60, 255, 255], np.uint8)
@@ -109,6 +104,12 @@ def oreitnation_cone():
                 cY = int(Moments["m01"] / Moments["m00"])
             else:
                 cX, cY = 0,0
+
+            # Show images
+            cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
+            cv2.imshow('RealSense', orange_mask)
+            cv2.waitKey(1)
+
             cv2.circle(color_image, (cX, cY), 5, (0, 165, 255), -1)
             
             distance = depth_frame.get_distance(cX, cY)

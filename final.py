@@ -264,7 +264,7 @@ def face_find():
                         motors = 6000
                         tango.setTarget(MOTORS, motors)
 
-                    if(distance > 2):
+                    if(distance > 1):
                         motors = 6000
                         tango.setTarget(MOTORS,motors)
                         body = 5400            

@@ -241,7 +241,7 @@ def face_find():
                 faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
                 if(len(faces) == 0):
-                    headTurn += 1
+                    headTurn += 100
                     if(headTurn > 8000):
                         headTurn = 4000
                     tango.setTarget(MOTORS, motors)

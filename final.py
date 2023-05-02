@@ -134,11 +134,8 @@ try:
         else:
             body = 6000
             tango.setTarget(BODY,body)
-            print("Entered Mining Area!")
-            inMiningArea = True
 
-            
-
+        print(distance)
 
 
 finally:

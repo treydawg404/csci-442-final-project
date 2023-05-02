@@ -224,23 +224,9 @@ def face_find():
             depth_image = np.asanyarray(depth_frame.get_data())
             color_image = np.asanyarray(color_frame.get_data())
 
-            # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
-            depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
-
-            hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
-            orange_lower = np.array([0, 250, 50], np.uint8)
-            orange_upper = np.array([60, 255, 255], np.uint8)
-            orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
-            Moments = cv2.moments(orange_mask)
-            if Moments["m00"] != 0:
-                cX = int(Moments["m10"] / Moments["m00"])
-                cY = int(Moments["m01"] / Moments["m00"])
-            else:
-                cX, cY = 0,0
-
             # Show images
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
-            cv2.imshow('RealSense', orange_mask)
+            cv2.imshow('RealSense', color_image)
             cv2.waitKey(1)
 
             cv2.circle(color_image, (cX, cY), 5, (0, 165, 255), -1)

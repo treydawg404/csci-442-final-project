@@ -111,9 +111,9 @@ def orientation_cone():
 
             #print((cv2.countNonZero(orange_mask) / orange_mask.size))
             if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.001) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):
-                motors += 200
-                if(motors > 7000):
-                    motors = 7000
+                motors -= 200
+                if(motors > 5300):
+                    motors = 5300
                     tango.setTarget(MOTORS, motors)
 
             else:

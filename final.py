@@ -231,7 +231,7 @@ def face_find():
 
             gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
 
-            faces = face_cascade.detectMultiScale(gray, 1.2, 5,)
+            faces = face_cascade.detectMultiScale(gray, 1.25, 5,)
 
             if(len(faces) == 0):
                 motors = 4800
@@ -574,4 +574,4 @@ def goal_find(savedColor):
 
 orientation_cone()
 face_find()
-#result = color_find()
+result = color_find()

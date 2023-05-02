@@ -14,14 +14,12 @@ import time
 import math
 from maestro import Controller                                                     
 
-def oreitnation_cone():
+def orientation_cone():
     MOTORS = 1
-    TURN = 2
     BODY = 0
 
     tango = Controller()
     motors = 6000
-    turns = 6000
     body = 6000
 
     # Configure depth and color streams
@@ -91,9 +89,6 @@ def oreitnation_cone():
             # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
             depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
 
-            depth_colormap_dim = depth_colormap.shape
-            color_colormap_dim = color_image.shape
-
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
             orange_lower = np.array([0, 250, 50], np.uint8)
             orange_upper = np.array([60, 255, 255], np.uint8)
@@ -151,4 +146,4 @@ def oreitnation_cone():
         # Stop streaming
         pipeline.stop()
 
-oreitnation_cone()
+orientation_cone()

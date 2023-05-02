@@ -78,7 +78,7 @@ def orient_finish():
                 body = 6000
                 tango.setTarget(BODY, body)
 
-        print(cX)
+        print(distance)
 
 # Configure depth and color streams
 pipeline = rs.pipeline()

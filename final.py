@@ -335,11 +335,8 @@ def color_find():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
-    yellow_lower = np.array([160, 200, 140], np.uint8)
-    yellow_upper = np.array([185, 256, 256], np.uint8)
-
-    orange_lower = np.array([0, 50, 50], np.uint8)
-    orange_upper = np.array([20, 100, 255], np.uint8)
+    yellow_lower = np.array([120, 150, 150], np.uint8)
+    yellow_upper = np.array([200, 256, 200], np.uint8)
 
     green_lower = np.array([150, 220, 40], np.uint8)
     green_upper = np.array([180, 255,100], np.uint8)
@@ -374,7 +371,7 @@ def color_find():
             for x in range(10000):
                 counter += 1
 
-            orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
+            green_mask = cv2.inRange(hsv, green_lower, green_upper)
         
             yellow_mask = cv2.inRange(hsv, yellow_lower, yellow_upper)
         
@@ -398,18 +395,18 @@ def color_find():
             for pic, contour in enumerate(contours):
                 area = cv2.contourArea(contour)
                 if(area > 500):
-                    savedColor = "blue"
+                    savedColor = "yellow"
                     x, y, w, h = cv2.boundingRect(contour)
                     color_image = cv2.rectangle(color_image, (x, y), (x + w, y + h), (51, 255, 255), 2)
                         
 
                     # Creating contour to track green color
-            contours, hierarchy = cv2.findContours(orange_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+            contours, hierarchy = cv2.findContours(green_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
             
             for pic, contour in enumerate(contours):
                 area = cv2.contourArea(contour)
                 if(area > 500):
-                    savedColor = "orange"
+                    savedColor = "green"
                     x, y, w, h = cv2.boundingRect(contour)
                     color_image = cv2.rectangle(color_image, (x, y), 
                                             (x + w, y + h),

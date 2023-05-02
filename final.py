@@ -574,4 +574,4 @@ def goal_find(savedColor):
 
 orientation_cone()
 face_find()
-result = color_find()
+#result = color_find()

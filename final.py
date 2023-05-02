@@ -234,7 +234,7 @@ def face_find():
             faces = face_cascade.detectMultiScale(gray, 1.2, 5,)
 
             if(len(faces) == 0):
-                motors = 4500
+                motors = 4800
                 tango.setTarget(MOTORS,motors)
                 time.sleep(0.2)
                 motors = 6000

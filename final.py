@@ -335,8 +335,8 @@ def color_find():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
-    yellow_lower = np.array([85, 200, 140], np.uint8)
-    yellow_upper = np.array([100, 256, 256], np.uint8)
+    yellow_lower = np.array([160, 200, 140], np.uint8)
+    yellow_upper = np.array([185, 256, 256], np.uint8)
 
     orange_lower = np.array([0, 50, 50], np.uint8)
     orange_upper = np.array([20, 100, 255], np.uint8)

@@ -236,7 +236,7 @@ def face_find():
             if(len(faces) == 0):
                 motors = 4500
                 tango.setTarget(MOTORS,motors)
-                time.sleep(0.25)
+                time.sleep(0.2)
                 motors = 6000
                 tango.setTarget(MOTORS,motors)
             elif(len(faces) != 0):

@@ -83,7 +83,7 @@ if Moments["m00"] != 0:
     cY = int(Moments["m01"] / Moments["m00"])
 else:
     cX, cY = 0,0
-
+cv2.circle(color_image, (cX, cY), 5, (0, 165, 255), -1)
 
 try:
     while True:
@@ -99,8 +99,6 @@ try:
         depth_image = np.asanyarray(depth_frame.get_data())
         color_image = np.asanyarray(color_frame.get_data())
 
-        cv2.circle(color_image, (640,240), (5), (0, 0, 255), 2, 1)
-
         distance = depth_frame.get_distance(cX,cY)
         # Show images
         cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
@@ -112,7 +110,7 @@ try:
             if(body >7900):
                    body = 7900
             tango.setTarget(BODY,body)
-        elif(distance > 1):
+        elif(distance > 1.5):
             body -= 200
             if(body < 1510):
                 body = 1510

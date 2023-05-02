@@ -209,7 +209,7 @@ def face_find():
     foundFace = False
     savedColor = None
 
-    headTurn = 6000
+    headTurn = 4000
     tango.setTarget(HEADTURN, headTurn)
     headTilt = 6000
     tango.setTarget(HEADTILT, headTilt)
@@ -241,10 +241,10 @@ def face_find():
                 faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
                 if(len(faces) == 0):
-                    motors += 200
-                    if(motors > 7000):
-                        motors = 7000
-                        tango.setTarget(MOTORS, motors)
+                    headTurn += 1
+                    if(headTurn > 8000):
+                        headTurn = 4000
+                    tango.setTarget(MOTORS, motors)
                 elif(len(faces) != 0):
                     print("Found Face!")
                     for (x,y,w,h) in faces:

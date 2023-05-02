@@ -62,10 +62,10 @@ def orient_finish():
         cv2.imshow('RobotVision', color_image) 
         cv2.waitKey(1)
 
-        if (cX > 370):
+        if (cX > 390):
             motors = 5200
             tango.setTarget(MOTORS, motors)
-        elif (cX < 270):
+        elif (cX < 250):
             motors = 6800
             tango.setTarget(MOTORS, motors)
         else:

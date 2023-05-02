@@ -66,7 +66,7 @@ def orientation_cone():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
-    headTilt = 4200
+    headTilt = 4300
     tango.setTarget(HEADTILT, headTilt)
 
     try:
@@ -86,7 +86,7 @@ def orientation_cone():
 
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
             orange_lower = np.array([10, 250, 50], np.uint8)
-            orange_upper = np.array([60, 255, 255], np.uint8)
+            orange_upper = np.array([50, 255, 255], np.uint8)
             orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
             Moments = cv2.moments(orange_mask)
             if Moments["m00"] != 0:
@@ -578,6 +578,6 @@ def goal_find(savedColor):
         # Stop streaming
         pipeline.stop()
 
-orientation_cone()
-face_find()
+#orientation_cone()
+#face_find()
 result = color_find()

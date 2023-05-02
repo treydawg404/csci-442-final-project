@@ -144,7 +144,10 @@ def orientation_cone():
 
 def face_find():
     MOTORS = 1
+    TURN = 2
     BODY = 0
+    HEADTILT = 4
+    HEADTURN = 3
 
     tango = Controller()
     motors = 6000
@@ -205,6 +208,12 @@ def face_find():
     inMiningArea = True
     foundFace = False
     savedColor = None
+
+    headTurn = 6000
+    tango.setTarget(HEADTURN, headTurn)
+    headTilt = 6000
+    tango.setTarget(HEADTILT, headTilt)
+
 
     try:
         while True:

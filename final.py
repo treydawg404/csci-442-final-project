@@ -271,6 +271,8 @@ def face_find():
                     body = 6000
                     tango.setTarget(BODY,body)
                     print("Moved to Face!")
+                    headTilt = 3000
+                    tango.setTarget(HEADTILT, headTilt)
                     return
 
 

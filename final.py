@@ -492,6 +492,18 @@ def goal_find(savedColor):
     depth_image = np.asanyarray(depth_frame.get_data())
     color_image = np.asanyarray(color_frame.get_data())
 
+    goalColor = savedColor
+
+
+    yellow_lower = np.array([120, 150, 150], np.uint8)
+    yellow_upper = np.array([140, 255, 200], np.uint8)
+
+    green_lower = np.array([150, 220, 40], np.uint8)
+    green_upper = np.array([180, 255,100], np.uint8)
+
+    pink_lower = np.array([150, 0, 150], np.uint8)
+    pink_upper = np.array([255, 100, 255], np.uint8)
+
     try:
         while True:
 
@@ -507,11 +519,14 @@ def goal_find(savedColor):
 
             # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
 
-            hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
-            orange_lower = np.array([0, 250, 50], np.uint8)
-            orange_upper = np.array([60, 255, 255], np.uint8)
-            orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
-            Moments = cv2.moments(orange_mask)
+            if goalColor == "pink":
+                color_mask = cv2.inRange(color_image, pink_lower, pink_upper)
+            elif goalColor == "yellow":
+                color_mask = cv2.inRange(color_image, yellow_lower, yellow_upper)
+            elif goalColor == "green":
+                color_mask = cv2.inRange(color_image, green_lower, green_upper)
+
+            Moments = cv2.moments(color_mask)
             if Moments["m00"] != 0:
                 cX = int(Moments["m10"] / Moments["m00"])
                 cY = int(Moments["m01"] / Moments["m00"])
@@ -520,7 +535,7 @@ def goal_find(savedColor):
 
             # Show images
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
-            cv2.imshow('RealSense', orange_mask)
+            cv2.imshow('RealSense', color_mask)
             cv2.waitKey(1)
 
             cv2.circle(color_image, (cX, cY), 5, (0, 165, 255), -1)
@@ -528,7 +543,7 @@ def goal_find(savedColor):
             distance = depth_frame.get_distance(cX, cY)
 
             #print((cv2.countNonZero(orange_mask) / orange_mask.size))
-            if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.001) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):
+            if (((cv2.countNonZero(color_mask) / color_mask.size) < 0.001) or ((cv2.countNonZero(color_mask) / color_mask.size) > 0.5)):
                 motors += 200
                 if(motors > 7000):
                     motors = 7000
@@ -554,7 +569,7 @@ def goal_find(savedColor):
                     else:
                         body = 6000
                         tango.setTarget(BODY,body)
-                        print ("In mining area")
+                        print ("Goal!")
                         return
 
     finally:
@@ -566,4 +581,4 @@ def goal_find(savedColor):
 #face_find()
 print("AWAITING ICE")
 savedColor = color_find()
-#goal_find(savedColor)
+goal_find(savedColor)

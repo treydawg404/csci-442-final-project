@@ -116,10 +116,8 @@ def oreitnation_cone():
 
             if (cY < 5):
                 print("FUCK")
-                motors = 7000
-                body = 0
-                tango.setTarget(MOTORS, motors)
-                tango.setTarget(BODY, body)
+                motors += 5
+                tango.setTarget(MOTORS,motors)
             
             print(cY)
 

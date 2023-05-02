@@ -203,9 +203,6 @@ def face_find():
 
     face_cascade = cv2.CascadeClassifier('data/haarcascades/haarcascade_frontalface_default.xml')
 
-    foundFace = False
-    savedColor = None
-
     headTurn = 6000
     tango.setTarget(HEADTURN, headTurn)
     headTilt = 6000
@@ -230,6 +227,47 @@ def face_find():
             # Show images
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
             cv2.imshow('RealSense', color_image)
+
+            gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
+
+            faces = face_cascade.detectMultiScale(gray, 1.1, 5,)
+
+            if(len(faces) == 0):
+                motors = 5400
+                tango.setTarget(MOTORS,motors)
+            elif(len(faces) != 0):
+                print("Found Face!")
+                for (x,y,w,h) in faces:
+                    cv2.rectangle(color_image,(x,y),(x+w,y+h),(255,0,0),2)
+                cX = int((x + (w/2)))
+                cY = int((y + (h/2)))
+
+                distance = depth_frame.get_distance(cX,cY)
+
+                if (cX > 370):
+                    motors -= 200
+                    if(motors < 5000):
+                        motors = 5000
+                        tango.setTarget(MOTORS, motors)
+                elif (cX < 270):
+                    motors += 200
+                    if(motors > 7000):
+                        motors = 7000
+                        tango.setTarget(MOTORS, motors)
+                else:
+                    motors = 6000
+                    tango.setTarget(MOTORS, motors)
+
+                if(distance > 2):
+                    motors = 6000
+                    tango.setTarget(MOTORS,motors)
+                    body = 5200            
+                    tango.setTarget(BODY,body)
+                else:
+                    body = 6000
+                    tango.setTarget(BODY,body)
+                    print("Moved to Face!")
+                    return
 
 
     finally:
@@ -530,4 +568,4 @@ def goal_find(savedColor):
         # Stop streaming
         pipeline.stop()
 
-orientation_cone()
+face_find()

@@ -111,7 +111,6 @@ def orientation_cone():
 
             print((cv2.countNonZero(orange_mask) / orange_mask.size))
             if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.001) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):
-                print ("FUCK!!!")
                 motors += 200
                 if(motors > 7000):
                     motors = 7000
@@ -236,8 +235,10 @@ def face_find():
                 faces = face_cascade.detectMultiScale(gray, 1.1, 5)
 
                 if(len(faces) == 0):
-                    motors = 5400
-                    tango.setTarget(MOTORS,motors)
+                    motors += 200
+                    if(motors > 7000):
+                        motors = 7000
+                        tango.setTarget(MOTORS, motors)
                 elif(len(faces) != 0):
                     print("Found Face!")
                     for (x,y,w,h) in faces:
@@ -287,3 +288,4 @@ def face_find():
         pipeline.stop()
 
 orientation_cone()
+face_find()

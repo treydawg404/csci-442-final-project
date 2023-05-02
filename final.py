@@ -119,7 +119,9 @@ def oreitnation_cone():
                 motors += 200
                 if(motors > 7000):
                     motors = 7000
+                    body = 0
                     tango.setTarget(MOTORS, motors)
+                    tango.setTarget(BODY, body)
 
             else:
                 if (cX > 370):

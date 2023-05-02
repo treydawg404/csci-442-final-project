@@ -94,7 +94,7 @@ def orient_finish():
                 cX, cY = 0,0
             cv2.circle(color_image, (cX, cY), 5, (0, 165, 255), -1)
 
-            distance = depth_frame.get_distance(cX,cY)
+            distance = depth_frame.get_distance(100,100)
 
         cv2.namedWindow('RobotVision', cv2.WINDOW_AUTOSIZE)
         cv2.imshow('RobotVision', color_image) 

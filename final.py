@@ -227,6 +227,7 @@ def face_find():
             # Show images
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
             cv2.imshow('RealSense', color_image)
+            cv2.waitKey(1)
 
             gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
 

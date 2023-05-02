@@ -114,7 +114,7 @@ def oreitnation_cone():
             
             distance = depth_frame.get_distance(cX, cY)
 
-            if (cX == 0 and cY == 0):
+            if (cX < 5 and cY < 5):
                 motors = 5200
                 body = 0
                 tango.setTarget(MOTORS, motors)

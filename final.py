@@ -290,14 +290,13 @@ def face_find():
                         print("Moved to Face!")
                         foundFace = True
             if(inMiningArea == True and foundFace == True and savedColor == None):
-                if(firstLoop == True):
-                    motors = 6000
-                    tango.setTarget(MOTORS,motors)
-                    body = 6000
-                    tango.setTarget(BODY,body)
-                    firstLoop = False
-                    for x in range(50):
-                        pass
+                motors = 6000
+                tango.setTarget(MOTORS,motors)
+                body = 6000
+                tango.setTarget(BODY,body)
+                firstLoop = False
+                for x in range(50):
+                    pass
 
 
 

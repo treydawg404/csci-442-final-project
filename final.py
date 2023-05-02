@@ -342,7 +342,7 @@ def color_find():
     yellow_lower = np.array([120, 150, 150], np.uint8)
     yellow_upper = np.array([140, 255, 200], np.uint8)
 
-    green_lower = np.array([140, 220, 40], np.uint8)
+    green_lower = np.array([150, 220, 40], np.uint8)
     green_upper = np.array([180, 255,100], np.uint8)
 
     pink_lower = np.array([150, 0, 150], np.uint8)

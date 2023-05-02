@@ -13,6 +13,8 @@ import cv2
 import time
 from maestro import Controller
 
+
+
 def orient_finish():
     MOTORS = 1
     TURN = 2
@@ -23,6 +25,12 @@ def orient_finish():
     turns = 6000
     body = 6000
     inMiningArea = False
+
+    frames = pipeline.wait_for_frames()
+    # Align the depth frame to color frame
+    color_frame = frames.get_color_frame()
+    depth_frame = frames.get_depth_frame()
+
     while(1):
         # Wait for a coherent pair of frames: depth and color
         frames = pipeline.wait_for_frames()
@@ -46,7 +54,7 @@ def orient_finish():
                 cX, cY = 0,0
             cv2.circle(color_image, (cX, cY), 5, (0, 165, 255), -1)
 
-            distance = depth_image.get_distance(cX,cY)
+            distance = depth_frame.get_distance(cX,cY)
 
         cv2.namedWindow('RobotVision', cv2.WINDOW_AUTOSIZE)
         cv2.imshow('RobotVision', color_image) 

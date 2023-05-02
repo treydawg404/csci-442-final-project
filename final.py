@@ -277,6 +277,7 @@ def face_find():
                 firstLoop = False
                 for x in range(50):
                     pass
+                return
 
 
     finally:

@@ -112,8 +112,8 @@ def orientation_cone():
             #print((cv2.countNonZero(orange_mask) / orange_mask.size))
             if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.001) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):
                 motors -= 200
-                if(motors > 5300):
-                    motors = 5300
+                if(motors > 5100):
+                    motors = 5100
                     tango.setTarget(MOTORS, motors)
 
             else:
@@ -238,8 +238,8 @@ def face_find():
 
                 if(len(faces) == 0):
                     motors += 10
-                    if(motors > 5300):
-                        motors = 5300
+                    if(motors > 5100):
+                        motors = 5100
                         tango.setTarget(MOTORS, motors)
                 elif(len(faces) != 0):
                     print("Found Face!")

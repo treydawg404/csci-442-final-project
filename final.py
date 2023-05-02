@@ -209,9 +209,9 @@ def face_find():
     foundFace = False
     savedColor = None
 
-    headTurn = 4000
+    headTurn = 6000
     tango.setTarget(HEADTURN, headTurn)
-    headTilt = 4000
+    headTilt = 6000
     tango.setTarget(HEADTILT, headTilt)
 
 

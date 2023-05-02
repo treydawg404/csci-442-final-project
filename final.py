@@ -388,7 +388,7 @@ def color_find():
             pink_mask = cv2.dilate(pink_mask, kernel)
             res_pink = cv2.bitwise_and(color_image, color_image, mask = pink_mask)
 
-            orange_mask = cv2.dilate(orange_mask, kernel)
+            green_mask = cv2.dilate(green_mask, kernel)
         
             contours, hierarchy = cv2.findContours(yellow_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                 

@@ -71,6 +71,12 @@ def orient_finish():
         else:
             motors = 6000
             tango.setTarget(MOTORS, motors)
+            if (distance > 1.5):
+                body = 7000
+                tango.setTarget(BODY, body)
+            else:
+                body = 6000
+                tango.setTarget(BODY, body)
 
         print(cX)
 

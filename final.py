@@ -205,7 +205,7 @@ def face_find():
 
     headTurn = 6000
     tango.setTarget(HEADTURN, headTurn)
-    headTilt = 5500
+    headTilt = 6500
     tango.setTarget(HEADTILT, headTilt)
 
 

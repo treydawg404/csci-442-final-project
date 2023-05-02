@@ -221,8 +221,9 @@ def face_find():
                 continue
 
             # Convert images to numpy arrays
-            depth_image = np.asanyarray(depth_frame.get_data())
             color_image = np.asanyarray(color_frame.get_data())
+
+            # Apply colormap on depth image (image must 
 
             # Show images
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
@@ -230,9 +231,6 @@ def face_find():
             cv2.waitKey(1)
 
             cv2.circle(color_image, (cX, cY), 5, (0, 165, 255), -1)
-            
-            distance = depth_frame.get_distance(cX, cY)
-
             
             if(inMiningArea == True and foundFace == False):
                 gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)

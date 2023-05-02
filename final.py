@@ -114,8 +114,8 @@ def oreitnation_cone():
             
             distance = depth_frame.get_distance(cX, cY)
 
-
-            if (cY < 5):
+            print((cv2.countNonZero(orange_mask) / orange_mask.size))
+            if ((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.05):
                 motors += 200
                 if(motors > 7000):
                     motors = 7000
@@ -144,7 +144,6 @@ def oreitnation_cone():
                 else:
                     body = 6000
                     tango.setTarget(BODY,body)
-
 
     finally:
 

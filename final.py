@@ -62,6 +62,13 @@ def orient_finish():
         cv2.imshow('RobotVision', color_image) 
         cv2.waitKey(1)
 
+        if (distance > 1.5):
+                body = 7000
+                tango.setTarget(BODY, body)
+        else:
+            body = 6000
+            tango.setTarget(BODY, body)
+            
         if (cX > 390):
             motors = 5200
             tango.setTarget(MOTORS, motors)
@@ -71,12 +78,6 @@ def orient_finish():
         else:
             motors = 6000
             tango.setTarget(MOTORS, motors)
-            if (distance > 1.5):
-                body = 7000
-                tango.setTarget(BODY, body)
-            else:
-                body = 6000
-                tango.setTarget(BODY, body)
 
         print(distance)
 

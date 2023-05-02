@@ -56,20 +56,12 @@ def orientation_cone():
     depth_scale = depth_sensor.get_depth_scale()
     print("Depth Scale is: " , depth_scale)
 
-    # Create an align object
-    # rs.align allows us to perform alignment of depth frames to others frames
-    # The "align_to" is the stream type to which we plan to align depth frames.
-    align_to = rs.stream.color
-    align = rs.align(align_to)
-
     frames = pipeline.wait_for_frames()
     # Align the depth frame to color frame
-    aligned_frames = align.process(frames)
     depth_frame = frames.get_depth_frame()
     color_frame = frames.get_color_frame()
 
     # Convert images to numpy arrays
-    depth_image = np.asanyarray(depth_frame.get_data())
     color_image = np.asanyarray(color_frame.get_data())
 
     try:
@@ -184,27 +176,13 @@ def face_find():
     depth_scale = depth_sensor.get_depth_scale()
     print("Depth Scale is: " , depth_scale)
 
-    # Create an align object
-    # rs.align allows us to perform alignment of depth frames to others frames
-    # The "align_to" is the stream type to which we plan to align depth frames.
-    align_to = rs.stream.color
-    align = rs.align(align_to)
-
     frames = pipeline.wait_for_frames()
     # Align the depth frame to color frame
-    aligned_frames = align.process(frames)
     depth_frame = frames.get_depth_frame()
     color_frame = frames.get_color_frame()
 
     # Convert images to numpy arrays
-    depth_image = np.asanyarray(depth_frame.get_data())
     color_image = np.asanyarray(color_frame.get_data())
-
-    face_cascade = cv2.CascadeClassifier('data/haarcascades/haarcascade_frontalface_default.xml')
-
-    inMiningArea = True
-    foundFace = False
-    savedColor = None
 
     try:
         while True:
@@ -229,7 +207,7 @@ def face_find():
             if(inMiningArea == True and foundFace == False):
                 gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
 
-                faces = face_cascade.detectMultiScale(gray, 1.1, 5)
+                faces = face_cascade.detectMultiScale(gray, 1.5, 5)
 
                 if(len(faces) == 0):
                     motors += 200

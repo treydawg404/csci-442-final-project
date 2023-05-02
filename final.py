@@ -90,7 +90,7 @@ def orientation_cone():
             depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
 
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
-            orange_lower = np.array([0, 250, 100], np.uint8)
+            orange_lower = np.array([0, 250, 10], np.uint8)
             orange_upper = np.array([60, 255, 200], np.uint8)
             orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
             Moments = cv2.moments(orange_mask)

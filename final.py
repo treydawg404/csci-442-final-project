@@ -184,6 +184,12 @@ def face_find():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
+    inMiningArea = 0
+    foundFace = 0
+    savedColor = None
+
+    face_cascade = cv2.CascadeClassifier('data/haarcascades/haarcascade_frontalface_default.xml')
+
     try:
         while True:
 

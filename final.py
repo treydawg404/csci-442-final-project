@@ -137,7 +137,7 @@ def oreitnation_cone():
                     motors = 6000
                     tango.setTarget(MOTORS, motors)
 
-                if(distance > 1.5):
+                if(distance > 1.2):
                     motors = 6000
                     tango.setTarget(MOTORS,motors)
                     body = 5200            

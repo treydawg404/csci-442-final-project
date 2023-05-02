@@ -93,7 +93,6 @@ try:
         depth_colormap_dim = depth_colormap.shape
         color_colormap_dim = color_image.shape
 
-        distance = depth_frame.get_distance(cX, cY)
         # Show images
         cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
         cv2.imshow('RealSense', color_image)
@@ -110,6 +109,8 @@ try:
         else:
             cX, cY = 0,0
         cv2.circle(color_image, (cX, cY), 5, (0, 165, 255), -1)
+        
+        distance = depth_frame.get_distance(cX, cY)
 
         if (cX > 370):
             motors -= 200

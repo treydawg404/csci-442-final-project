@@ -274,7 +274,6 @@ def face_find():
                 tango.setTarget(MOTORS,motors)
                 body = 6000
                 tango.setTarget(BODY,body)
-                firstLoop = False
                 for x in range(50):
                     pass
                 return

@@ -87,6 +87,8 @@ def orient_finish():
             tango.setTarget(BODY,body)
             print("Entered Mining Area!")
 
+        print(cX)
+
 # Configure depth and color streams
 pipeline = rs.pipeline()
 config = rs.config()

@@ -109,7 +109,7 @@ def orientation_cone():
             
             distance = depth_frame.get_distance(cX, cY)
 
-            #print((cv2.countNonZero(orange_mask) / orange_mask.size))
+            print(cX)
             if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.001) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.6)):
                 motors += 200
                 if(motors > 7000):

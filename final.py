@@ -229,8 +229,6 @@ def face_find():
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
             cv2.imshow('RealSense', color_image)
             cv2.waitKey(1)
-
-            cv2.circle(color_image, (cX, cY), 5, (0, 165, 255), -1)
             
             if(inMiningArea == True and foundFace == False):
                 gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)

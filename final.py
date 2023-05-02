@@ -69,6 +69,8 @@ def orient_finish():
 
     face_cascade = cv2.CascadeClassifier('data/haarcascades/haarcascade_frontalface_default.xml')
 
+    inMiningArea = 0
+
     while(1):
         # Wait for a coherent pair of frames: depth and color
         frames = pipeline.wait_for_frames()

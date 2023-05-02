@@ -111,9 +111,9 @@ def orientation_cone():
 
             #print((cv2.countNonZero(orange_mask) / orange_mask.size))
             if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.001) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):
-                motors -= 200
-                if(motors > 5100):
-                    motors = 5100
+                motors += 200
+                if(motors > 7000):
+                    motors = 7000
                     tango.setTarget(MOTORS, motors)
 
             else:
@@ -237,9 +237,9 @@ def face_find():
                 faces = face_cascade.detectMultiScale(gray, 1.1, 5)
 
                 if(len(faces) == 0):
-                    motors += 10
-                    if(motors > 5100):
-                        motors = 5100
+                    motors += 200
+                    if(motors > 7000):
+                        motors = 7000
                         tango.setTarget(MOTORS, motors)
                 elif(len(faces) != 0):
                     print("Found Face!")
@@ -252,8 +252,8 @@ def face_find():
 
                     if (cX > 370):
                         motors -= 200
-                        if(motors < 5000):
-                            motors = 5000
+                        if(motors < 5200):
+                            motors = 5200
                             tango.setTarget(MOTORS, motors)
                     elif (cX < 270):
                         motors += 200
@@ -267,14 +267,13 @@ def face_find():
                     if(distance > 2):
                         motors = 6000
                         tango.setTarget(MOTORS,motors)
-                        body = 5200            
+                        body = 5400            
                         tango.setTarget(BODY,body)
                     else:
                         body = 6000
                         tango.setTarget(BODY,body)
                         print("Moved to Face!")
                         foundFace = True
-                        return
             if(inMiningArea == True and foundFace == True and savedColor == None):
                 motors = 6000
                 tango.setTarget(MOTORS,motors)

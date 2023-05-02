@@ -87,7 +87,7 @@ def orientation_cone():
 
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
             orange_lower = np.array([10, 250, 50], np.uint8)
-            orange_upper = np.array([20, 255, 255], np.uint8)
+            orange_upper = np.array([40, 255, 255], np.uint8)
             orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
             Moments = cv2.moments(orange_mask)
             if Moments["m00"] != 0:
@@ -574,3 +574,4 @@ def goal_find(savedColor):
 
 orientation_cone()
 face_find()
+result = color_find()

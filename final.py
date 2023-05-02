@@ -13,24 +13,17 @@ import cv2
 import time
 from maestro import Controller
 
+MOTORS = 1
+TURN = 2
+BODY = 0
 
+tango = Controller()
+motors = 6000
+turns = 6000
+body = 6000
 
 def orient_finish():
-    MOTORS = 1
-    TURN = 2
-    BODY = 0
-
-    tango = Controller()
-    motors = 6000
-    turns = 6000
-    body = 6000
     inMiningArea = False
-
-    frames = pipeline.wait_for_frames()
-    # Align the depth frame to color frame
-    color_frame = frames.get_color_frame()
-    depth_frame = frames.get_depth_frame()
-
     while(1):
         # Wait for a coherent pair of frames: depth and color
         frames = pipeline.wait_for_frames()

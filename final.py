@@ -336,8 +336,11 @@ def color_find():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
-    yellow_lower = np.array([120, 150, 150], np.uint8)
-    yellow_upper = np.array([140, 255, 200], np.uint8)
+    #yellow_lower = np.array([120, 150, 150], np.uint8)
+    #yellow_upper = np.array([140, 255, 200], np.uint8)
+
+    orange_lower = np.array([0, 50, 50], np.uint8)
+    orange_upper = np.array([60, 100, 255], np.uint8)
 
     green_lower = np.array([150, 220, 40], np.uint8)
     green_upper = np.array([180, 255,100], np.uint8)
@@ -372,7 +375,7 @@ def color_find():
             for x in range(10000):
                 counter += 1
 
-            yellow_mask = cv2.inRange(color_image, yellow_lower, yellow_upper)
+            yellow_mask = cv2.inRange(hsv, orange_lower, orange_upper)
         
             green_mask = cv2.inRange(color_image, green_lower, green_upper)
         

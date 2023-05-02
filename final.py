@@ -56,12 +56,20 @@ def orientation_cone():
     depth_scale = depth_sensor.get_depth_scale()
     print("Depth Scale is: " , depth_scale)
 
+    # Create an align object
+    # rs.align allows us to perform alignment of depth frames to others frames
+    # The "align_to" is the stream type to which we plan to align depth frames.
+    align_to = rs.stream.color
+    align = rs.align(align_to)
+
     frames = pipeline.wait_for_frames()
     # Align the depth frame to color frame
+    aligned_frames = align.process(frames)
     depth_frame = frames.get_depth_frame()
     color_frame = frames.get_color_frame()
 
     # Convert images to numpy arrays
+    depth_image = np.asanyarray(depth_frame.get_data())
     color_image = np.asanyarray(color_frame.get_data())
 
     try:
@@ -80,7 +88,7 @@ def orientation_cone():
             # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
 
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
-            orange_lower = np.array([0, 250, 20], np.uint8)
+            orange_lower = np.array([0, 250, 50], np.uint8)
             orange_upper = np.array([60, 255, 255], np.uint8)
             orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
             Moments = cv2.moments(orange_mask)
@@ -176,19 +184,27 @@ def face_find():
     depth_scale = depth_sensor.get_depth_scale()
     print("Depth Scale is: " , depth_scale)
 
+    # Create an align object
+    # rs.align allows us to perform alignment of depth frames to others frames
+    # The "align_to" is the stream type to which we plan to align depth frames.
+    align_to = rs.stream.color
+    align = rs.align(align_to)
+
     frames = pipeline.wait_for_frames()
     # Align the depth frame to color frame
+    aligned_frames = align.process(frames)
     depth_frame = frames.get_depth_frame()
     color_frame = frames.get_color_frame()
 
     # Convert images to numpy arrays
+    depth_image = np.asanyarray(depth_frame.get_data())
     color_image = np.asanyarray(color_frame.get_data())
 
-    inMiningArea = 0
-    foundFace = 0
-    savedColor = None
-
     face_cascade = cv2.CascadeClassifier('data/haarcascades/haarcascade_frontalface_default.xml')
+
+    inMiningArea = True
+    foundFace = False
+    savedColor = None
 
     try:
         while True:
@@ -213,7 +229,7 @@ def face_find():
             if(inMiningArea == True and foundFace == False):
                 gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
 
-                faces = face_cascade.detectMultiScale(gray, 1.5, 5)
+                faces = face_cascade.detectMultiScale(gray, 1.1, 5)
 
                 if(len(faces) == 0):
                     motors += 200
@@ -480,9 +496,9 @@ def goal_find(savedColor):
 
 
     yellow_lower = np.array([120, 150, 150], np.uint8)
-    yellow_upper = np.array([200, 255, 200], np.uint8)
+    yellow_upper = np.array([140, 255, 200], np.uint8)
 
-    green_lower = np.array([140, 220, 40], np.uint8)
+    green_lower = np.array([150, 220, 40], np.uint8)
     green_upper = np.array([180, 255,100], np.uint8)
 
     pink_lower = np.array([150, 0, 150], np.uint8)
@@ -563,3 +579,6 @@ def goal_find(savedColor):
 
 orientation_cone()
 face_find()
+print("AWAITING ICE")
+savedColor = color_find()
+goal_find(savedColor)

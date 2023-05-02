@@ -117,12 +117,12 @@ def orientation_cone():
                     tango.setTarget(MOTORS, motors)
 
             else:
-                if (cX > 390):
+                if (cX > 400):
                     motors -= 200
                     if(motors < 5000):
                         motors = 5000
                         tango.setTarget(MOTORS, motors)
-                elif (cX < 250):
+                elif (cX < 240):
                     motors += 200
                     if(motors > 7000):
                         motors = 7000
@@ -289,3 +289,4 @@ def face_find():
         pipeline.stop()
 
 orientation_cone()
+face_find()

@@ -578,7 +578,3 @@ def goal_find(savedColor):
         pipeline.stop()
 
 orientation_cone()
-face_find()
-print("AWAITING ICE")
-savedColor = color_find()
-goal_find(savedColor)

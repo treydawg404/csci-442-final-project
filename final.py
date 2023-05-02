@@ -286,4 +286,4 @@ def face_find():
         # Stop streaming
         pipeline.stop()
 
-face_find()
+orientation_cone()

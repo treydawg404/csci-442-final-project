@@ -229,7 +229,7 @@ def face_find():
             if(inMiningArea == True and foundFace == False):
                 gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
 
-                faces = face_cascade.detectMultiScale(gray, 1.1, 5)
+                faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
                 if(len(faces) == 0):
                     motors += 200

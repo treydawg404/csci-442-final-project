@@ -116,6 +116,7 @@ def oreitnation_cone():
 
             print((cv2.countNonZero(orange_mask) / orange_mask.size))
             if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.05) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):
+                print ("FUCK!!!")
                 motors += 200
                 if(motors > 7000):
                     motors = 7000

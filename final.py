@@ -109,7 +109,7 @@ def orientation_cone():
             
             distance = depth_frame.get_distance(cX, cY)
 
-            print((cv2.countNonZero(orange_mask) / orange_mask.size))
+            #print((cv2.countNonZero(orange_mask) / orange_mask.size))
             if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.001) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):
                 motors += 200
                 if(motors > 7000):
@@ -139,6 +139,8 @@ def orientation_cone():
                 else:
                     body = 6000
                     tango.setTarget(BODY,body)
+                    print ("In mining area")
+                    return
 
     finally:
 
@@ -272,6 +274,7 @@ def face_find():
                         tango.setTarget(BODY,body)
                         print("Moved to Face!")
                         foundFace = True
+                        return
             if(inMiningArea == True and foundFace == True and savedColor == None):
                 motors = 6000
                 tango.setTarget(MOTORS,motors)

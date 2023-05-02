@@ -115,6 +115,7 @@ def oreitnation_cone():
             distance = depth_frame.get_distance(cX, cY)
 
             if (cY < 5):
+                print("FUCK")
                 motors = 7000
                 body = 0
                 tango.setTarget(MOTORS, motors)

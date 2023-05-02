@@ -130,17 +130,16 @@ def orientation_cone():
                 else:
                     motors = 6000
                     tango.setTarget(MOTORS, motors)
-
-                if(distance > 1):
-                    motors = 6000
-                    tango.setTarget(MOTORS,motors)
-                    body = 5200            
-                    tango.setTarget(BODY,body)
-                else:
-                    body = 6000
-                    tango.setTarget(BODY,body)
-                    print ("In mining area")
-                    return
+                    if(distance > 1):
+                        motors = 6000
+                        tango.setTarget(MOTORS,motors)
+                        body = 5200            
+                        tango.setTarget(BODY,body)
+                    else:
+                        body = 6000
+                        tango.setTarget(BODY,body)
+                        print ("In mining area")
+                        return
 
     finally:
 
@@ -290,4 +289,3 @@ def face_find():
         pipeline.stop()
 
 orientation_cone()
-face_find()

@@ -73,8 +73,6 @@ color_frame = frames.get_color_frame()
 depth_image = np.asanyarray(depth_frame.get_data())
 color_image = np.asanyarray(color_frame.get_data())
 
-bbox = cv2.selectROI(color_image, False)
-
 try:
     while True:
 
@@ -112,9 +110,6 @@ try:
         else:
             cX, cY = 0,0
         cv2.circle(color_image, (cX, cY), 5, (0, 165, 255), -1)
-
-        distance = depth_frame.get_distance(cX,cY)
-
 
         if (cX > 370):
             motors -= 200

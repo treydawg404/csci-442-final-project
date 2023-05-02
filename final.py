@@ -392,23 +392,23 @@ def color_find():
             pink_mask = cv2.dilate(pink_mask, kernel)
             res_pink = cv2.bitwise_and(color_image, color_image, mask = pink_mask)
         
-            contours, hierarchy = cv2.findContours(yellow_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+            contours, hierarchy = cv2.findContours(green_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                 
             for pic, contour in enumerate(contours):
                 area = cv2.contourArea(contour)
                 if(area > 500):
-                    savedColor = "yellow"
+                    savedColor = "green"
                     x, y, w, h = cv2.boundingRect(contour)
                     color_image = cv2.rectangle(color_image, (x, y), (x + w, y + h), (51, 255, 255), 2)
                         
 
                     # Creating contour to track green color
-            contours, hierarchy = cv2.findContours(green_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+            contours, hierarchy = cv2.findContours(yellow_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
             
             for pic, contour in enumerate(contours):
                 area = cv2.contourArea(contour)
                 if(area > 500):
-                    savedColor = "green"
+                    savedColor = "orange"
                     x, y, w, h = cv2.boundingRect(contour)
                     color_image = cv2.rectangle(color_image, (x, y), 
                                             (x + w, y + h),

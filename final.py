@@ -70,6 +70,8 @@ def orientation_cone():
     headTilt = 4400
     tango.setTarget(HEADTILT, headTilt)
 
+    kernel = np.ones((5, 5), "uint8")
+
     try:
         while True:
 
@@ -89,6 +91,9 @@ def orientation_cone():
             orange_lower = np.array([0, 250, 50], np.uint8)
             orange_upper = np.array([60, 255, 255], np.uint8)
             orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
+
+            orange_mask = cv2.dilate(orange_mask, kernel)
+
             Moments = cv2.moments(orange_mask)
             if Moments["m00"] != 0:
                 cX = int(Moments["m10"] / Moments["m00"])

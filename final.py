@@ -45,7 +45,6 @@ def orient_finish():
         hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
 
         if(inMiningArea == False):
-            orange_lower = np.array([0, 50, 20], np.uint8)
             orange_lower = np.array([0, 200, 20], np.uint8)
             orange_upper = np.array([60, 255, 255], np.uint8)
             orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
@@ -63,16 +62,12 @@ def orient_finish():
         cv2.imshow('RobotVision', color_image) 
         cv2.waitKey(1)
 
-        if (cX > 370):
-            motors -= 200
-            if(motors < 5000):
-                motors = 5000
-                tango.setTarget(MOTORS, motors)
-        elif (cX < 270):
-            motors += 200
-            if(motors > 7000):
-                motors = 7000
-                tango.setTarget(MOTORS, motors)
+        if (cX > 390):
+            motors = 5200
+            tango.setTarget(MOTORS, motors)
+        elif (cX < 250):
+            motors = 6800
+            tango.setTarget(MOTORS, motors)
         else:
             motors = 6000
             tango.setTarget(MOTORS, motors)

@@ -339,14 +339,14 @@ def color_find():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
-    yellow_lower = np.array([30, 150, 140], np.uint8)
-    yellow_upper = np.array([40, 240, 256], np.uint8)
+    yellow_lower = np.array([120, 150, 150], np.uint8)
+    yellow_upper = np.array([200, 255, 200], np.uint8)
 
-    green_lower = np.array([50, 120, 170], np.uint8)
-    green_upper = np.array([67, 160,256], np.uint8)
+    green_lower = np.array([140, 220, 40], np.uint8)
+    green_upper = np.array([180, 255,100], np.uint8)
 
-    pink_lower = np.array([160, 130, 171], np.uint8)
-    pink_upper = np.array([175, 230, 256], np.uint8)
+    pink_lower = np.array([150, 0, 150], np.uint8)
+    pink_upper = np.array([255, 100, 255], np.uint8)
 
     savedColor = None
 
@@ -371,16 +371,15 @@ def color_find():
             tango.setTarget(MOTORS,motors)
             body = 6000
             tango.setTarget(BODY,body)
-            print("AWAITING ICE")
             counter  = 0
             for x in range(10000):
                 counter += 1
 
-            yellow_mask = cv2.inRange(hsv, yellow_lower, yellow_upper)
+            yellow_mask = cv2.inRange(color_image, yellow_lower, yellow_upper)
         
-            green_mask = cv2.inRange(hsv, green_lower, green_upper)
+            green_mask = cv2.inRange(color_image, green_lower, green_upper)
         
-            pink_mask = cv2.inRange(hsv, pink_lower, pink_upper)
+            pink_mask = cv2.inRange(color_image, pink_lower, pink_upper)
 
             kernel = np.ones((5, 5), "uint8")
             
@@ -565,5 +564,6 @@ def goal_find(savedColor):
 
 #orientation_cone()
 #face_find()
+print("AWAITING ICE")
 savedColor = color_find()
 #goal_find(savedColor)

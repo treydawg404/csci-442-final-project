@@ -86,7 +86,7 @@ def orientation_cone():
             # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
 
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
-            orange_lower = np.array([0, 250, 50], np.uint8)
+            orange_lower = np.array([0, 250, 20], np.uint8)
             orange_upper = np.array([60, 255, 255], np.uint8)
             orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
             Moments = cv2.moments(orange_mask)
@@ -231,7 +231,7 @@ def face_find():
 
             gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
 
-            faces = face_cascade.detectMultiScale(gray, 1.25, 5,)
+            faces = face_cascade.detectMultiScale(gray, 1.2, 5,)
 
             if(len(faces) == 0):
                 motors = 4800

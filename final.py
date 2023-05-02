@@ -83,11 +83,9 @@ def orientation_cone():
                 continue
 
             # Convert images to numpy arrays
-            depth_image = np.asanyarray(depth_frame.get_data())
             color_image = np.asanyarray(color_frame.get_data())
 
             # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
-            depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
 
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
             orange_lower = np.array([0, 250, 50], np.uint8)
@@ -119,28 +117,25 @@ def orientation_cone():
             else:
                 if (cX > 400):
                     motors -= 200
-                    if(motors < 5000):
-                        motors = 5000
+                    if(motors < 5200):
+                        motors = 5200
                         tango.setTarget(MOTORS, motors)
                 elif (cX < 240):
                     motors += 200
-                    if(motors > 7000):
-                        motors = 7000
+                    if(motors > 6800):
+                        motors = 6800
                         tango.setTarget(MOTORS, motors)
                 else:
-                    motors = 6000
-                    tango.setTarget(MOTORS, motors)
-
-                if(distance > 1):
-                    motors = 6000
-                    tango.setTarget(MOTORS,motors)
-                    body = 5200            
-                    tango.setTarget(BODY,body)
-                else:
-                    body = 6000
-                    tango.setTarget(BODY,body)
-                    print ("In mining area")
-                    return
+                    if(distance > 1):
+                        motors = 6000
+                        tango.setTarget(MOTORS,motors)
+                        body = 5200            
+                        tango.setTarget(BODY,body)
+                    else:
+                        body = 6000
+                        tango.setTarget(BODY,body)
+                        print ("In mining area")
+                        return
 
     finally:
 

@@ -67,9 +67,8 @@ def orientation_cone():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
-    headTilt = 4300
+    headTilt = 4400
     tango.setTarget(HEADTILT, headTilt)
-    kernel = np.ones((5, 5), "uint8")
 
     try:
         while True:
@@ -87,10 +86,9 @@ def orientation_cone():
             # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
 
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
-            orange_lower = np.array([00, 250, 20], np.uint8)
-            orange_upper = np.array([60, 255, 255], np.uint8)
+            orange_lower = np.array([10, 250, 50], np.uint8)
+            orange_upper = np.array([20, 255, 255], np.uint8)
             orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
-            orange_mask = cv2.dilate(orange_mask, kernel)
             Moments = cv2.moments(orange_mask)
             if Moments["m00"] != 0:
                 cX = int(Moments["m10"] / Moments["m00"])
@@ -109,27 +107,27 @@ def orientation_cone():
 
             #print((cv2.countNonZero(orange_mask) / orange_mask.size))
             if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.001) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):
-                motors += 500
-                if(motors > 7100):
-                    motors = 7100
+                motors += 300
+                if(motors > 7000):
+                    motors = 7000
                     tango.setTarget(MOTORS, motors)
 
             else:
                 if (cX > 400):
-                    motors -= 500
-                    if(motors < 5100):
-                        motors = 5100
+                    motors -= 200
+                    if(motors < 5200):
+                        motors = 5200
                         tango.setTarget(MOTORS, motors)
                 elif (cX < 240):
-                    motors += 500
-                    if(motors > 6900):
-                        motors = 6900
+                    motors += 200
+                    if(motors > 6800):
+                        motors = 6800
                         tango.setTarget(MOTORS, motors)
                 else:
                     if(distance > 1):
                         motors = 6000
                         tango.setTarget(MOTORS,motors)
-                        body = 5000            
+                        body = 5200            
                         tango.setTarget(BODY,body)
                     else:
                         body = 6000
@@ -233,7 +231,7 @@ def face_find():
 
             gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
 
-            faces = face_cascade.detectMultiScale(gray, 1.25, 5,)
+            faces = face_cascade.detectMultiScale(gray, 1.2, 5,)
 
             if(len(faces) == 0):
                 motors = 4800
@@ -273,8 +271,6 @@ def face_find():
                     body = 6000
                     tango.setTarget(BODY,body)
                     print("Moved to Face!")
-                    headTilt = 3000
-                    tango.setTarget(HEADTILT, headTilt)
                     return
 
 
@@ -339,7 +335,7 @@ def color_find():
     color_image = np.asanyarray(color_frame.get_data())
 
     yellow_lower = np.array([120, 150, 150], np.uint8)
-    yellow_upper = np.array([200, 256, 200], np.uint8)
+    yellow_upper = np.array([140, 255, 200], np.uint8)
 
     green_lower = np.array([150, 220, 40], np.uint8)
     green_upper = np.array([180, 255,100], np.uint8)
@@ -374,9 +370,9 @@ def color_find():
             for x in range(10000):
                 counter += 1
 
-            green_mask = cv2.inRange(hsv, green_lower, green_upper)
+            yellow_mask = cv2.inRange(color_image, yellow_lower, yellow_upper)
         
-            yellow_mask = cv2.inRange(hsv, yellow_lower, yellow_upper)
+            green_mask = cv2.inRange(color_image, green_lower, green_upper)
         
             pink_mask = cv2.inRange(color_image, pink_lower, pink_upper)
 
@@ -385,13 +381,11 @@ def color_find():
             yellow_mask = cv2.dilate(yellow_mask, kernel)
             res_yellow = cv2.bitwise_and(color_image, color_image, mask = yellow_mask)
             
-            #green_mask = cv2.dilate(green_mask, kernel)
-            #res_green = cv2.bitwise_and(color_image, color_image, mask = green_mask)
+            green_mask = cv2.dilate(green_mask, kernel)
+            res_green = cv2.bitwise_and(color_image, color_image, mask = green_mask)
             
             pink_mask = cv2.dilate(pink_mask, kernel)
             res_pink = cv2.bitwise_and(color_image, color_image, mask = pink_mask)
-
-            green_mask = cv2.dilate(green_mask, kernel)
         
             contours, hierarchy = cv2.findContours(yellow_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                 
@@ -580,4 +574,3 @@ def goal_find(savedColor):
 
 orientation_cone()
 face_find()
-result = color_find()

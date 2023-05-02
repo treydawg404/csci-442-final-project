@@ -577,4 +577,4 @@ def goal_find(savedColor):
         # Stop streaming
         pipeline.stop()
 
-orientation_cone()
+face_find()

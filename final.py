@@ -143,7 +143,8 @@ def oreitnation_cone():
                     body = 6000
                     tango.setTarget(BODY,body)
 
-            print(cX + " " + cY)
+            print(cX)
+            print(cY)
 
 
     finally:

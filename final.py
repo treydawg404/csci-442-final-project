@@ -19,7 +19,6 @@ def orientation_cone():
     TURN = 2
     BODY = 0
     HEADTILT = 4
-    HEADTURN = 3
 
     tango = Controller()
     motors = 6000
@@ -142,7 +141,6 @@ def orientation_cone():
 
 def face_find():
     MOTORS = 1
-    TURN = 2
     BODY = 0
     HEADTILT = 4
     HEADTURN = 3

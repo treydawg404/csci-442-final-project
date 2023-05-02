@@ -56,7 +56,7 @@ def orient_finish():
                 cX, cY = 0,0
             cv2.circle(color_image, (cX, cY), 5, (0, 165, 255), -1)
 
-            distance = depth_frame.get_distance(cX,cY)
+            distance = images.get_distance(cX,cY)
 
         cv2.namedWindow('RobotVision', cv2.WINDOW_AUTOSIZE)
         cv2.imshow('RobotVision', color_image) 
@@ -68,7 +68,7 @@ def orient_finish():
         else:
             body = 6000
             tango.setTarget(BODY, body)
-            
+
         if (cX > 390):
             motors = 5200
             tango.setTarget(MOTORS, motors)

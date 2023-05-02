@@ -96,11 +96,11 @@ def oreitnation_cone():
 
             # Show images
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
-            cv2.imshow('RealSense', color_image)
+            cv2.imshow('RealSense', orange_mask)
             cv2.waitKey(1)
 
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
-            orange_lower = np.array([0, 200, 20], np.uint8)
+            orange_lower = np.array([0, 250, 20], np.uint8)
             orange_upper = np.array([60, 255, 255], np.uint8)
             orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
             Moments = cv2.moments(orange_mask)
@@ -127,7 +127,7 @@ def oreitnation_cone():
                 motors = 6000
                 tango.setTarget(MOTORS, motors)
 
-            if(distance > 1.5):
+            if(distance > 1):
                 motors = 6000
                 tango.setTarget(MOTORS,motors)
                 body = 5200            

@@ -397,7 +397,7 @@ def color_find():
                 
             for pic, contour in enumerate(contours):
                 area = cv2.contourArea(contour)
-                if(area > 1000):
+                if(area > 500):
                     savedColor = "yellow"
                     x, y, w, h = cv2.boundingRect(contour)
                     color_image = cv2.rectangle(color_image, (x, y), (x + w, y + h), (51, 255, 255), 2)
@@ -408,7 +408,7 @@ def color_find():
             
             for pic, contour in enumerate(contours):
                 area = cv2.contourArea(contour)
-                if(area > 1000):
+                if(area > 500):
                     savedColor = "green"
                     x, y, w, h = cv2.boundingRect(contour)
                     color_image = cv2.rectangle(color_image, (x, y), 
@@ -422,7 +422,7 @@ def color_find():
                     
             for pic, contour in enumerate(contours):
                 area = cv2.contourArea(contour)
-                if(area > 1000):
+                if(area > 500):
                     savedColor = "pink"
                     x, y, w, h = cv2.boundingRect(contour)
                     color_image = cv2.rectangle(color_image, (x, y),
@@ -563,7 +563,7 @@ def goal_find(savedColor):
         # Stop streaming
         pipeline.stop()
 
-orientation_cone()
-face_find()
+#orientation_cone()
+#face_find()
 savedColor = color_find()
 #goal_find(savedColor)

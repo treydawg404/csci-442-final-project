@@ -73,17 +73,7 @@ color_frame = frames.get_color_frame()
 depth_image = np.asanyarray(depth_frame.get_data())
 color_image = np.asanyarray(color_frame.get_data())
 
-hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
-orange_lower = np.array([0, 200, 20], np.uint8)
-orange_upper = np.array([60, 255, 255], np.uint8)
-orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
-Moments = cv2.moments(orange_mask)
-if Moments["m00"] != 0:
-    cX = int(Moments["m10"] / Moments["m00"])
-    cY = int(Moments["m01"] / Moments["m00"])
-else:
-    cX, cY = 0,0
-cv2.circle(color_image, (cX, cY), 5, (0, 165, 255), -1)
+bbox = cv2.selectROI(color_image, False)
 
 try:
     while True:
@@ -99,22 +89,57 @@ try:
         depth_image = np.asanyarray(depth_frame.get_data())
         color_image = np.asanyarray(color_frame.get_data())
 
-        distance = depth_frame.get_distance(cX,cY)
+        # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
+        depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
+
+        depth_colormap_dim = depth_colormap.shape
+        color_colormap_dim = color_image.shape
+
+        distance = depth_frame.get_distance(cX, cY)
         # Show images
         cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
         cv2.imshow('RealSense', color_image)
         cv2.waitKey(1)
 
-        if(distance < 1):
-            body += 200
-            if(body >7900):
-                   body = 7900
+        hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
+        orange_lower = np.array([0, 200, 20], np.uint8)
+        orange_upper = np.array([60, 255, 255], np.uint8)
+        orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
+        Moments = cv2.moments(orange_mask)
+        if Moments["m00"] != 0:
+            cX = int(Moments["m10"] / Moments["m00"])
+            cY = int(Moments["m01"] / Moments["m00"])
+        else:
+            cX, cY = 0,0
+        cv2.circle(color_image, (cX, cY), 5, (0, 165, 255), -1)
+
+        distance = depth_frame.get_distance(cX,cY)
+
+
+        if (cX > 370):
+            motors -= 200
+            if(motors < 5000):
+                motors = 5000
+                tango.setTarget(MOTORS, motors)
+        elif (cX < 270):
+            motors += 200
+            if(motors > 7000):
+                motors = 7000
+                tango.setTarget(MOTORS, motors)
+        else:
+            motors = 6000
+            tango.setTarget(MOTORS, motors)
+
+        if(distance > 1.5):
+            motors = 6000
+            tango.setTarget(MOTORS,motors)
+            body = 5200            
             tango.setTarget(BODY,body)
-        elif(distance > 1.5):
-            body -= 200
-            if(body < 1510):
-                body = 1510
+        else:
+            body = 6000
             tango.setTarget(BODY,body)
+            print("Entered Mining Area!")
+            inMiningArea = True
 
             
 

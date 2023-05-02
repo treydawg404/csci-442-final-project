@@ -577,8 +577,8 @@ def goal_find(savedColor):
         # Stop streaming
         pipeline.stop()
 
-#orientation_cone()
-#face_find()
+orientation_cone()
+face_find()
 print("AWAITING ICE")
 savedColor = color_find()
 goal_find(savedColor)

@@ -245,6 +245,7 @@ def face_find():
                     if(headTurn > 8000):
                         headTurn = 4000
                     tango.setTarget(MOTORS, motors)
+                    time.sleep(1)
                 elif(len(faces) != 0):
                     print("Found Face!")
                     for (x,y,w,h) in faces:

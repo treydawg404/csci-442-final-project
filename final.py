@@ -134,7 +134,7 @@ def orientation_cone():
                             tango.setTarget(MOTORS,motors)
                             body = 4800            
                             tango.setTarget(BODY,body)
-                            time.sleep(0.5)
+                            time.sleep(0.3)
                             body = 6000            
                             tango.setTarget(BODY,body)
                         else:
@@ -585,6 +585,7 @@ def goal_find(savedColor):
             tango.setTarget(MOTORS, motors)
             body = 5200
             tango.setTarget(BODY, body)
+            tango.setTarget(5)
 
     finally:
 

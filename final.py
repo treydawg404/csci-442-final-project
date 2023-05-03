@@ -432,6 +432,8 @@ def color_find():
             #        color_image = cv2.rectangle(color_image, (x, y),
             #                                (x + w, y + h),
             #                                (255, 77, 255), 2)
+
+            savedColor = "green"
             if(savedColor != None):
                 print("COLOR DETECTED: " + savedColor)
                 return savedColor

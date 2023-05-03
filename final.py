@@ -88,8 +88,8 @@ def orientation_cone():
             # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
 
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
-            orange_lower = np.array([0, 250, 20], np.uint8)
-            orange_upper = np.array([60, 255, 255], np.uint8)
+            orange_lower = np.array([0, 250, 50], np.uint8)
+            orange_upper = np.array([30, 255, 255], np.uint8)
             #hsv = cv2.dilate(hsv,kernel)
             orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
 
@@ -346,16 +346,17 @@ def color_find():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
-    yellow_lower = np.array([255, 255, 0], np.uint8)
-    yellow_upper = np.array([255, 255, 153], np.uint8)
+    yellow_lower = np.array([120, 150, 150], np.uint8)
+    yellow_upper = np.array([140, 255, 200], np.uint8)
 
-    green_lower = np.array([0, 128, 0], np.uint8)
-    green_upper = np.array([0, 255, 0], np.uint8)
+    green_lower = np.array([150, 220, 40], np.uint8)
+    green_upper = np.array([180, 255,100], np.uint8)
 
-    pink_lower = np.array([255, 20, 147], np.uint8)
-    pink_upper = np.array([255, 192, 203], np.uint8)
+    pink_lower = np.array([150, 0, 150], np.uint8)
+    pink_upper = np.array([255, 100, 255], np.uint8)
 
     savedColor = None
+
 
     try:
         while True:

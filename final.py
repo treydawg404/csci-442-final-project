@@ -16,10 +16,8 @@ from maestro import Controller
 
 def orientation_cone():
     MOTORS = 1
-    TURN = 2
     BODY = 0
     HEADTILT = 4
-    HEADTURN = 3
 
     tango = Controller()
     motors = 6000
@@ -69,8 +67,6 @@ def orientation_cone():
 
     headTilt = 4600
     tango.setTarget(HEADTILT, headTilt)
-
-    kernel = np.ones((5, 5), "uint8")
     counter = 0
 
     try:
@@ -136,7 +132,7 @@ def orientation_cone():
                         if(distance > 1):
                             motors = 6000
                             tango.setTarget(MOTORS,motors)
-                            body = 5200            
+                            body = 5300            
                             tango.setTarget(BODY,body)
                         else:
                             body = 6000

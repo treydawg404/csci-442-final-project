@@ -349,8 +349,8 @@ def color_find():
     green_lower = np.array([150, 220, 40], np.uint8)
     green_upper = np.array([180, 255,100], np.uint8)
 
-    #pink_lower = np.array([125, 0, 125], np.uint8)
-    #pink_upper = np.array([255, 100, 255], np.uint8)
+    pink_lower = np.array([125, 0, 125], np.uint8)
+    pink_upper = np.array([255, 100, 255], np.uint8)
 
     savedColor = None
 
@@ -384,7 +384,7 @@ def color_find():
         
             green_mask = cv2.inRange(color_image, green_lower, green_upper)
         
-            #pink_mask = cv2.inRange(color_image, pink_lower, pink_upper)
+            pink_mask = cv2.inRange(color_image, pink_lower, pink_upper)
 
             kernel = np.ones((5, 5), "uint8")
             
@@ -394,8 +394,8 @@ def color_find():
             green_mask = cv2.dilate(green_mask, kernel)
             res_green = cv2.bitwise_and(color_image, color_image, mask = green_mask)
             
-            #pink_mask = cv2.dilate(pink_mask, kernel)
-            #res_pink = cv2.bitwise_and(color_image, color_image, mask = pink_mask)
+            pink_mask = cv2.dilate(pink_mask, kernel)
+            res_pink = cv2.bitwise_and(color_image, color_image, mask = pink_mask)
         
             #contours, hierarchy = cv2.findContours(yellow_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                 
@@ -420,20 +420,20 @@ def color_find():
                                             (0, 255, 0), 2)
                         
 
-            #contours, hierarchy = cv2.findContours(pink_mask,
-            #                                    cv2.RETR_TREE,
-            #                                    cv2.CHAIN_APPROX_SIMPLE)
-            #        
-            #for pic, contour in enumerate(contours):
-            #    area = cv2.contourArea(contour)
-            #    if(area > 500):
-            #        savedColor = "pink"
-            #        x, y, w, h = cv2.boundingRect(contour)
-            #        color_image = cv2.rectangle(color_image, (x, y),
-            #                                (x + w, y + h),
-            #                                (255, 77, 255), 2)
+            contours, hierarchy = cv2.findContours(pink_mask,
+                                                cv2.RETR_TREE,
+                                                cv2.CHAIN_APPROX_SIMPLE)
+                    
+            for pic, contour in enumerate(contours):
+                area = cv2.contourArea(contour)
+                if(area > 500):
+                    savedColor = "pink"
+                    x, y, w, h = cv2.boundingRect(contour)
+                    color_image = cv2.rectangle(color_image, (x, y),
+                                            (x + w, y + h),
+                                            (255, 77, 255), 2)
 
-            savedColor = "green"
+            savedColor = "pink"
             if(savedColor != None):
                 print("COLOR DETECTED: " + savedColor)
                 return savedColor
@@ -589,6 +589,8 @@ def goal_find(savedColor):
             tango.setTarget(MOTORS, motors)
             body = 5200
             tango.setTarget(BODY, body)
+            time.sleep(10)
+            return
 
     finally:
 

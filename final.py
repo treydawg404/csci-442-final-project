@@ -69,6 +69,9 @@ def orientation_cone():
 
     headTilt = 4800
     tango.setTarget(HEADTILT, headTilt)
+    headTurn = 6000
+    tango.setTarget(HEADTURN, headTurn)
+
 
     kernel = np.ones((5, 5), "uint8")
 
@@ -112,9 +115,9 @@ def orientation_cone():
 
             #print((cv2.countNonZero(orange_mask) / orange_mask.size))
             if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.005) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):
-                motors += 300
-                if(motors > 7000):
-                    motors = 7000
+                motors -= 300
+                if(motors < 5000):
+                    motors = 5000
                     tango.setTarget(MOTORS, motors)
 
             else:

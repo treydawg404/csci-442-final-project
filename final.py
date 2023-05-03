@@ -287,6 +287,8 @@ def face_find():
 def color_find():
     MOTORS = 1
     BODY = 0
+    HEADTILT = 4
+    HEADTURN = 3
 
     tango = Controller()
     motors = 6000
@@ -349,6 +351,12 @@ def color_find():
     pink_upper = np.array([255, 100, 255], np.uint8)
 
     savedColor = None
+
+    headTilt = 4000
+    tango.setTarget(HEADTILT, headTilt)
+    headTurn = 6000
+    tango.setTarget(HEADTURN, headTurn)
+
 
     try:
         while True:
@@ -580,3 +588,5 @@ def goal_find(savedColor):
 orientation_cone()
 face_find()
 result = color_find()
+orientation_cone()
+goal_find(result)

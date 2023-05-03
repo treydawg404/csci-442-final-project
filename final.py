@@ -88,7 +88,7 @@ def orientation_cone():
             # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
 
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
-            orange_lower = np.array([0, 250, 50], np.uint8)
+            orange_lower = np.array([5, 250, 50], np.uint8)
             orange_upper = np.array([60, 255, 255], np.uint8)
             #hsv = cv2.dilate(hsv,kernel)
             orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
@@ -109,6 +109,8 @@ def orientation_cone():
             cv2.circle(color_image, (cX, cY), 5, (0, 165, 255), -1)
             
             distance = depth_frame.get_distance(cX, cY)
+
+            time.sleep(1)
 
             #print((cv2.countNonZero(orange_mask) / orange_mask.size))
             if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.001) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):

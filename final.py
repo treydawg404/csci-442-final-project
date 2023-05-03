@@ -111,7 +111,7 @@ def orientation_cone():
                 
                 #print((cv2.countNonZero(orange_mask) / orange_mask.size))
                 if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.005) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):
-                    motors = 4800
+                    motors = 5000
                     tango.setTarget(MOTORS,motors)
                     time.sleep(0.2)
                     motors = 6000
@@ -556,7 +556,7 @@ def goal_find(savedColor):
             if (count > 50 and target == 0):
                 #print((cv2.countNonZero(orange_mask) / orange_mask.size))
                 if (((cv2.countNonZero(color_mask) / color_mask.size) < 0.005) or ((cv2.countNonZero(color_mask) / color_mask.size) > 0.5)):
-                    motors = 4800
+                    motors = 5000
                     tango.setTarget(MOTORS,motors)
                     time.sleep(0.2)
                     motors = 6000
@@ -577,7 +577,7 @@ def goal_find(savedColor):
                         motors = 6800
                         tango.setTarget(MOTORS, motors)
                         target = 1
-
+            motors = 6000
             body = 5200
             tango.setTarget(BODY, body)
 

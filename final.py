@@ -134,7 +134,7 @@ def orientation_cone():
                             tango.setTarget(MOTORS,motors)
                             body = 5000            
                             tango.setTarget(BODY,body)
-                            time.sleep(0.2)
+                            time.sleep(0.5)
                             body = 6000            
                             tango.setTarget(BODY,body)
                         else:
@@ -551,7 +551,7 @@ def goal_find(savedColor):
             distance = depth_frame.get_distance(cX, cY)
 
             #print((cv2.countNonZero(orange_mask) / orange_mask.size))
-            if (((cv2.countNonZero(color_mask) / color_mask.size) < 0.001) or ((cv2.countNonZero(color_mask) / color_mask.size) > 0.5)):
+            if (((cv2.countNonZero(color_mask) / color_mask.size) < 0.0005) or ((cv2.countNonZero(color_mask) / color_mask.size) > 0.5)):
                 motors += 200
                 if(motors > 7000):
                     motors = 7000

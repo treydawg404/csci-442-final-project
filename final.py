@@ -510,7 +510,7 @@ def goal_find(savedColor):
     pink_upper = np.array([255, 100, 255], np.uint8)
 
     count = 0
-    headTilt = 5000
+    headTilt = 5500
     target = 0
     tango.setTarget(4, headTilt)
 

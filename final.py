@@ -588,5 +588,5 @@ def goal_find(savedColor):
         # Stop streaming
         pipeline.stop()
 
-
+result = color_find()
 goal_find(result)

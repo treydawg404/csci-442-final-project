@@ -509,6 +509,7 @@ def goal_find(savedColor):
     pink_lower = np.array([150, 0, 150], np.uint8)
     pink_upper = np.array([255, 100, 255], np.uint8)
 
+    count = 0
     headTilt = 4200
     tango.setTarget(4, headTilt)
 
@@ -550,35 +551,37 @@ def goal_find(savedColor):
             
             distance = depth_frame.get_distance(cX, cY)
 
-            #print((cv2.countNonZero(orange_mask) / orange_mask.size))
-            if (((cv2.countNonZero(color_mask) / color_mask.size) < 0.0005) or ((cv2.countNonZero(color_mask) / color_mask.size) > 0.5)):
-                motors += 200
-                if(motors > 7000):
-                    motors = 7000
-                    tango.setTarget(MOTORS, motors)
-
-            else:
-                if (cX > 400):
-                    motors -= 200
-                    if(motors < 5200):
-                        motors = 5200
-                        tango.setTarget(MOTORS, motors)
-                elif (cX < 240):
+            count += 1
+            if (count > 50):
+                #print((cv2.countNonZero(orange_mask) / orange_mask.size))
+                if (((cv2.countNonZero(color_mask) / color_mask.size) < 0.0005) or ((cv2.countNonZero(color_mask) / color_mask.size) > 0.5)):
                     motors += 200
-                    if(motors > 6800):
-                        motors = 6800
+                    if(motors > 7000):
+                        motors = 7000
                         tango.setTarget(MOTORS, motors)
+
                 else:
-                    if(distance > 1):
-                        motors = 6000
-                        tango.setTarget(MOTORS,motors)
-                        body = 5200            
-                        tango.setTarget(BODY,body)
+                    if (cX > 400):
+                        motors -= 200
+                        if(motors < 5200):
+                            motors = 5200
+                            tango.setTarget(MOTORS, motors)
+                    elif (cX < 240):
+                        motors += 200
+                        if(motors > 6800):
+                            motors = 6800
+                            tango.setTarget(MOTORS, motors)
                     else:
-                        body = 6000
-                        tango.setTarget(BODY,body)
-                        print ("Goal!")
-                        return
+                        if(distance > 1):
+                            motors = 6000
+                            tango.setTarget(MOTORS,motors)
+                            body = 5200            
+                            tango.setTarget(BODY,body)
+                        else:
+                            body = 6000
+                            tango.setTarget(BODY,body)
+                            print ("Goal!")
+                            return
 
     finally:
 
@@ -588,5 +591,4 @@ def goal_find(savedColor):
 orientation_cone()
 face_find()
 result = color_find()
-orientation_cone()
 goal_find(result)

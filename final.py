@@ -65,7 +65,7 @@ def orientation_cone():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
-    headTilt = 4600
+    headTilt = 5500
     tango.setTarget(HEADTILT, headTilt)
     counter = 0
 
@@ -86,7 +86,7 @@ def orientation_cone():
 
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
             orange_lower = np.array([0, 250, 20], np.uint8)
-            orange_upper = np.array([60, 255, 255], np.uint8)
+            orange_upper = np.array([30, 255, 255], np.uint8)
             #hsv = cv2.dilate(hsv,kernel)
             orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
 

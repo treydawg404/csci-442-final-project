@@ -510,9 +510,10 @@ def goal_find(savedColor):
     pink_upper = np.array([255, 100, 255], np.uint8)
 
     count = 0
-    headTilt = 5000
     target = 0
+    headTilt = 5000
     tango.setTarget(4, headTilt)
+    tango.setTarget(BODY, 6000)
 
     try:
         while True:
@@ -555,7 +556,7 @@ def goal_find(savedColor):
             count += 1
             if (count > 50 and target == 0):
                 #print((cv2.countNonZero(orange_mask) / orange_mask.size))
-                if (((cv2.countNonZero(color_mask) / color_mask.size) < 0.005) or ((cv2.countNonZero(color_mask) / color_mask.size) > 0.5)):
+                if (((cv2.countNonZero(color_mask) / color_mask.size) < 0.001) or ((cv2.countNonZero(color_mask) / color_mask.size) > 0.5)):
                     motors = 5000
                     tango.setTarget(MOTORS,motors)
                     time.sleep(0.2)
@@ -579,6 +580,7 @@ def goal_find(savedColor):
                         target = 1
                         time.sleep(1)
             motors = 6000
+            tango.setTarget(MOTORS, motors)
             body = 5200
             tango.setTarget(BODY, body)
 

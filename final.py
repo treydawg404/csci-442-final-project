@@ -444,10 +444,13 @@ def color_find():
 def goal_find(savedColor):
     MOTORS = 1
     BODY = 0
+    HEADTILT = 4
 
     tango = Controller()
     motors = 6000
     body = 6000
+    tango.setTarget(BODY, body)
+    tango.setTarget(MOTORS, motors)
 
     # Configure depth and color streams
     pipeline = rs.pipeline()
@@ -514,8 +517,7 @@ def goal_find(savedColor):
     count = 0
     target = 0
     headTilt = 5000
-    tango.setTarget(4, headTilt)
-    tango.setTarget(BODY, 6000)
+    tango.setTarget(HEADTILT, headTilt)
 
     try:
         while True:
@@ -566,26 +568,15 @@ def goal_find(savedColor):
                     tango.setTarget(MOTORS,motors)
 
                 else:
-                    if (cX > 400):
-                        motors -= 200
-                        if(motors < 5200):
-                            motors = 5200
-                            tango.setTarget(MOTORS, motors)
-                    elif (cX < 240):
-                        motors += 200
-                        if(motors > 6800):
-                            motors = 6800
-                            tango.setTarget(MOTORS, motors)
-                    else:
-                        motors = 6000
-                        tango.setTarget(MOTORS, motors)
-                        body = 6000
-                        tango.setTarget(BODY, body)
-                        target = 1
-                        time.sleep(1)
+                    motors = 6000
+                    tango.setTarget(MOTORS, motors)
+                    body = 6000
+                    tango.setTarget(BODY, body)
+                    target = 1
+                    time.sleep(1)
             motors = 6000
             tango.setTarget(MOTORS, motors)
-            body = 5200
+            body = 6000
             tango.setTarget(BODY, body)
 
     finally:

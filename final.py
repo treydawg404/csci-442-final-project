@@ -140,7 +140,7 @@ def orientation_cone():
                         body = 6000
                         tango.setTarget(BODY,body)
                         print ("In mining area")
-                        #return
+                        return
 
     finally:
 

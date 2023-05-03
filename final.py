@@ -67,7 +67,7 @@ def orientation_cone():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
-    headTilt = 4400
+    headTilt = 4800
     tango.setTarget(HEADTILT, headTilt)
 
     kernel = np.ones((5, 5), "uint8")

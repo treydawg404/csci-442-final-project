@@ -134,7 +134,7 @@ def orientation_cone():
                             tango.setTarget(MOTORS,motors)
                             body = 4800            
                             tango.setTarget(BODY,body)
-                            time.sleep(0.2)
+                            time.sleep(0.5)
                             body = 6000            
                             tango.setTarget(BODY,body)
                         else:

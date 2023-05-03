@@ -601,8 +601,8 @@ def goal_find(savedColor):
         # Stop streaming
         pipeline.stop()
 
-#orientation_cone()
-#face_find()
+orientation_cone()
+face_find()
 result = color_find()
 time.sleep(2)
 goal_find(result)

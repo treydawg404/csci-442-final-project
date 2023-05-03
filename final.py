@@ -349,8 +349,8 @@ def color_find():
     green_lower = np.array([150, 220, 40], np.uint8)
     green_upper = np.array([180, 255,100], np.uint8)
 
-    #pink_lower = np.array([125, 0, 125], np.uint8)
-    #pink_upper = np.array([255, 100, 255], np.uint8)
+    pink_lower = np.array([125, 0, 125], np.uint8)
+    pink_upper = np.array([255, 100, 255], np.uint8)
 
     savedColor = None
 

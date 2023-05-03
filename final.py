@@ -111,7 +111,7 @@ def orientation_cone():
             distance = depth_frame.get_distance(cX, cY)
 
             #print((cv2.countNonZero(orange_mask) / orange_mask.size))
-            if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.004) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):
+            if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.005) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):
                 motors = 5000
                 tango.setTarget(MOTORS,motors)
                 time.sleep(0.5)

@@ -433,7 +433,7 @@ def color_find():
             #                                (x + w, y + h),
             #                                (255, 77, 255), 2)
 
-            savedColor = "green"
+            savedColor = "pink"
             if(savedColor != None):
                 print("COLOR DETECTED: " + savedColor)
                 return savedColor
@@ -589,6 +589,8 @@ def goal_find(savedColor):
             tango.setTarget(MOTORS, motors)
             body = 5200
             tango.setTarget(BODY, body)
+            time.sleep(5)
+            return
 
     finally:
 

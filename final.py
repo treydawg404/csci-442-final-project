@@ -343,8 +343,8 @@ def color_find():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
-    yellow_lower = np.array([120, 150, 150], np.uint8)
-    yellow_upper = np.array([140, 255, 200], np.uint8)
+    yellow_lower = np.array([20, 150, 240], np.uint8)
+    yellow_upper = np.array([150, 255, 255], np.uint8)
 
     green_lower = np.array([40, 140, 40], np.uint8)
     green_upper = np.array([120, 255,120], np.uint8)
@@ -433,7 +433,6 @@ def color_find():
                                             (x + w, y + h),
                                             (255, 77, 255), 2)
 
-            savedColor = "yellow"
             if(savedColor != None):
                 print("COLOR DETECTED: " + savedColor)
                 return savedColor

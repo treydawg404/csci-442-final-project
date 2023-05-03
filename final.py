@@ -65,7 +65,7 @@ def orientation_cone():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
-    headTilt = 5500
+    headTilt = 4800
     tango.setTarget(HEADTILT, headTilt)
     counter = 0
 
@@ -111,10 +111,11 @@ def orientation_cone():
                 
                 #print((cv2.countNonZero(orange_mask) / orange_mask.size))
                 if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.005) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):
-                    motors -= 300
-                    if(motors > 5000):
-                        motors = 5000
-                        tango.setTarget(MOTORS, motors)
+                    motors = 4800
+                    tango.setTarget(MOTORS,motors)
+                    time.sleep(0.2)
+                    motors = 6000
+                    tango.setTarget(MOTORS,motors)
 
                 else:
                     if (cX > 400):

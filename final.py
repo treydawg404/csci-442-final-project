@@ -241,7 +241,7 @@ def face_find():
 
             gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
 
-            faces = face_cascade.detectMultiScale(gray, 1.2, 5,)
+            faces = face_cascade.detectMultiScale(gray, 1.25, 5,)
 
             if(len(faces) == 0):
                 motors = 4800
@@ -388,17 +388,6 @@ def color_find():
             green_mask = cv2.inRange(color_image, green_lower, green_upper)
         
             pink_mask = cv2.inRange(color_image, pink_lower, pink_upper)
-
-            kernel = np.ones((5, 5), "uint8")
-            
-            yellow_mask = cv2.dilate(yellow_mask, kernel)
-            res_yellow = cv2.bitwise_and(color_image, color_image, mask = yellow_mask)
-            
-            green_mask = cv2.dilate(green_mask, kernel)
-            res_green = cv2.bitwise_and(color_image, color_image, mask = green_mask)
-            
-            pink_mask = cv2.dilate(pink_mask, kernel)
-            res_pink = cv2.bitwise_and(color_image, color_image, mask = pink_mask)
         
             contours, hierarchy = cv2.findContours(yellow_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                 

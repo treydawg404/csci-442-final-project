@@ -71,6 +71,7 @@ def orientation_cone():
     tango.setTarget(HEADTILT, headTilt)
 
     kernel = np.ones((5, 5), "uint8")
+    counter = 0
 
     try:
         while True:
@@ -110,35 +111,36 @@ def orientation_cone():
             
             distance = depth_frame.get_distance(cX, cY)
 
-            #print((cv2.countNonZero(orange_mask) / orange_mask.size))
-            if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.005) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):
-                motors += 300
-                if(motors > 7000):
-                    motors = 7000
-                    tango.setTarget(MOTORS, motors)
+            if (counter > 1000):
+                #print((cv2.countNonZero(orange_mask) / orange_mask.size))
+                if (((cv2.countNonZero(orange_mask) / orange_mask.size) < 0.005) or ((cv2.countNonZero(orange_mask) / orange_mask.size) > 0.5)):
+                    motors -= 300
+                    if(motors > 5000):
+                        motors = 5000
+                        tango.setTarget(MOTORS, motors)
 
-            else:
-                if (cX > 400):
-                    motors -= 200
-                    if(motors < 5200):
-                        motors = 5200
-                        tango.setTarget(MOTORS, motors)
-                elif (cX < 240):
-                    motors += 200
-                    if(motors > 6800):
-                        motors = 6800
-                        tango.setTarget(MOTORS, motors)
                 else:
-                    if(distance > 1):
-                        motors = 6000
-                        tango.setTarget(MOTORS,motors)
-                        body = 5200            
-                        tango.setTarget(BODY,body)
+                    if (cX > 400):
+                        motors -= 200
+                        if(motors < 5200):
+                            motors = 5200
+                            tango.setTarget(MOTORS, motors)
+                    elif (cX < 240):
+                        motors += 200
+                        if(motors > 6800):
+                            motors = 6800
+                            tango.setTarget(MOTORS, motors)
                     else:
-                        body = 6000
-                        tango.setTarget(BODY,body)
-                        print ("In mining area")
-                        return
+                        if(distance > 1):
+                            motors = 6000
+                            tango.setTarget(MOTORS,motors)
+                            body = 5200            
+                            tango.setTarget(BODY,body)
+                        else:
+                            body = 6000
+                            tango.setTarget(BODY,body)
+                            print ("In mining area")
+                            return
 
     finally:
 

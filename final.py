@@ -147,8 +147,6 @@ def orientation_cone():
 
 def face_find():
     MOTORS = 1
-    TURN = 2
-    BODY = 0
     HEADTILT = 4
     HEADTURN = 3
 
@@ -236,7 +234,7 @@ def face_find():
 
             gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
 
-            faces = face_cascade.detectMultiScale(gray, 1.2, 5,)
+            faces = face_cascade.detectMultiScale(gray, 1.15, 5,)
 
             if(len(faces) == 0):
                 motors = 4800

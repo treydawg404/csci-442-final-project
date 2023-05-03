@@ -505,8 +505,8 @@ def goal_find(savedColor):
     goalColor = savedColor
 
 
-    yellow_lower = np.array([10, 10, 10], np.uint8)
-    yellow_upper = np.array([0, 255, 255], np.uint8)
+    yellow_lower = np.array([0, 200, 200], np.uint8)
+    yellow_upper = np.array([30, 255, 255], np.uint8)
 
     green_lower = np.array([40, 140, 40], np.uint8)
     green_upper = np.array([120, 255,120], np.uint8)
@@ -589,7 +589,7 @@ def goal_find(savedColor):
             tango.setTarget(MOTORS, motors)
             body = 5200
             tango.setTarget(BODY, body)
-            if (count == 200):
+            if (count == 100):
                 motors = 6000
                 tango.setTarget(MOTORS, motors)
                 body = 6000

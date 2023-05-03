@@ -67,7 +67,7 @@ def orientation_cone():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
-    headTilt = 4600
+    headTilt = 4800
     tango.setTarget(HEADTILT, headTilt)
     headTurn = 6000
     tango.setTarget(HEADTURN, headTurn)
@@ -88,8 +88,8 @@ def orientation_cone():
             # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
 
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
-            orange_lower = np.array([0, 250, 50], np.uint8)
-            orange_upper = np.array([30, 255, 255], np.uint8)
+            orange_lower = np.array([0, 250, 20], np.uint8)
+            orange_upper = np.array([60, 255, 255], np.uint8)
             #hsv = cv2.dilate(hsv,kernel)
             orange_mask = cv2.inRange(hsv, orange_lower, orange_upper)
 
@@ -135,7 +135,7 @@ def orientation_cone():
                         tango.setTarget(MOTORS,motors)
                         body = 5200 
                         tango.setTarget(BODY,body)
-                        time.sleep(0.3)
+                        time.sleep(0.5)
                         body = 6000 
                         tango.setTarget(BODY,body)
 
@@ -349,8 +349,8 @@ def color_find():
     yellow_lower = np.array([120, 150, 150], np.uint8)
     yellow_upper = np.array([140, 255, 200], np.uint8)
 
-    green_lower = np.array([20, 220, 20], np.uint8)
-    green_upper = np.array([255, 255, 255], np.uint8)
+    green_lower = np.array([150, 220, 40], np.uint8)
+    green_upper = np.array([180, 255,100], np.uint8)
 
     pink_lower = np.array([150, 0, 150], np.uint8)
     pink_upper = np.array([255, 100, 255], np.uint8)
@@ -369,6 +369,10 @@ def color_find():
 
             color_image = np.asanyarray(color_frame.get_data())
 
+            cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
+            cv2.imshow('RealSense', color_image)
+            cv2.waitKey(1)
+
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
 
             motors = 6000
@@ -384,6 +388,17 @@ def color_find():
             green_mask = cv2.inRange(color_image, green_lower, green_upper)
         
             pink_mask = cv2.inRange(color_image, pink_lower, pink_upper)
+
+            kernel = np.ones((5, 5), "uint8")
+            
+            yellow_mask = cv2.dilate(yellow_mask, kernel)
+            res_yellow = cv2.bitwise_and(color_image, color_image, mask = yellow_mask)
+            
+            green_mask = cv2.dilate(green_mask, kernel)
+            res_green = cv2.bitwise_and(color_image, color_image, mask = green_mask)
+            
+            pink_mask = cv2.dilate(pink_mask, kernel)
+            res_pink = cv2.bitwise_and(color_image, color_image, mask = pink_mask)
         
             contours, hierarchy = cv2.findContours(yellow_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                 
@@ -423,13 +438,6 @@ def color_find():
             if(savedColor != None):
                 print("COLOR DETECTED: " + savedColor)
                 return savedColor
-            
-            
-
-            cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
-            cv2.imshow('RealSense', color_image)
-            cv2.waitKey(1)
-
     finally:
         # Stop streaming
         pipeline.stop()

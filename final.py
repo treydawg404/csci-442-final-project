@@ -510,7 +510,7 @@ def goal_find(savedColor):
     pink_upper = np.array([255, 193, 203], np.uint8)
 
     count = 0
-    headTilt = 4200
+    headTilt = 4800
     tango.setTarget(4, headTilt)
 
     try:
@@ -588,7 +588,5 @@ def goal_find(savedColor):
         # Stop streaming
         pipeline.stop()
 
-orientation_cone()
-face_find()
-result = color_find()
+
 goal_find(result)

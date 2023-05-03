@@ -588,7 +588,7 @@ def goal_find(savedColor):
             tango.setTarget(MOTORS, motors)
             body = 5200
             tango.setTarget(BODY, body)
-            if (count == 150):
+            if (count == 300):
                 motors = 6000
                 tango.setTarget(MOTORS, motors)
                 body = 6000

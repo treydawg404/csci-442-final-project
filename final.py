@@ -511,6 +511,7 @@ def goal_find(savedColor):
 
     count = 0
     headTilt = 5000
+    target = 0
     tango.setTarget(4, headTilt)
 
     try:
@@ -552,7 +553,7 @@ def goal_find(savedColor):
             distance = depth_frame.get_distance(cX, cY)
 
             count += 1
-            if (count > 50):
+            if (count > 50 and target == 0):
                 #print((cv2.countNonZero(orange_mask) / orange_mask.size))
                 if (((cv2.countNonZero(color_mask) / color_mask.size) < 0.005) or ((cv2.countNonZero(color_mask) / color_mask.size) > 0.5)):
                     motors = 4800
@@ -575,9 +576,10 @@ def goal_find(savedColor):
                     else:
                         motors = 6800
                         tango.setTarget(MOTORS, motors)
+                        target = 1
 
-                    body = 5200
-                    tango.setTarget(BODY, body)
+            body = 5200
+            tango.setTarget(BODY, body)
 
     finally:
 

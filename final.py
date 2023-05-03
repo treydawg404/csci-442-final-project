@@ -433,7 +433,7 @@ def color_find():
                                             (x + w, y + h),
                                             (255, 77, 255), 2)
 
-            savedColor = "pink"
+            savedColor = "green"
             if(savedColor != None):
                 print("COLOR DETECTED: " + savedColor)
                 return savedColor

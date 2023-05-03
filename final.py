@@ -506,8 +506,8 @@ def goal_find(savedColor):
     green_lower = np.array([150, 220, 40], np.uint8)
     green_upper = np.array([180, 255,100], np.uint8)
 
-    pink_lower = np.array([150, 0, 150], np.uint8)
-    pink_upper = np.array([255, 100, 255], np.uint8)
+    pink_lower = np.array([255, 20, 147], np.uint8)
+    pink_upper = np.array([255, 193, 203], np.uint8)
 
     count = 0
     headTilt = 4200

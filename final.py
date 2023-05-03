@@ -69,8 +69,8 @@ def orientation_cone():
 
     headTilt = 4800
     tango.setTarget(HEADTILT, headTilt)
-
-    kernel = np.ones((5, 5), "uint8")
+    headTurn = 6000
+    tango.setTarget(HEADTURN, headTurn)
 
     try:
         while True:
@@ -346,22 +346,16 @@ def color_find():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
-    yellow_lower = np.array([120, 150, 150], np.uint8)
-    yellow_upper = np.array([140, 255, 200], np.uint8)
+    yellow_lower = np.array([255, 255, 0], np.uint8)
+    yellow_upper = np.array([255, 255, 153], np.uint8)
 
-    green_lower = np.array([150, 220, 40], np.uint8)
-    green_upper = np.array([180, 255,100], np.uint8)
+    green_lower = np.array([0, 128, 0], np.uint8)
+    green_upper = np.array([0, 255, 0], np.uint8)
 
-    pink_lower = np.array([150, 0, 150], np.uint8)
-    pink_upper = np.array([255, 100, 255], np.uint8)
+    pink_lower = np.array([255, 20, 147], np.uint8)
+    pink_upper = np.array([255, 192, 203], np.uint8)
 
     savedColor = None
-
-    headTilt = 4000
-    tango.setTarget(HEADTILT, headTilt)
-    headTurn = 6000
-    tango.setTarget(HEADTURN, headTurn)
-
 
     try:
         while True:

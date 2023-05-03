@@ -561,16 +561,17 @@ def goal_find(savedColor):
             if (count > 50 and target == 0):
                 #print((cv2.countNonZero(orange_mask) / orange_mask.size))
                 if (((cv2.countNonZero(color_mask) / color_mask.size) < 0.001) or ((cv2.countNonZero(color_mask) / color_mask.size) > 0.5)):
-                    motors = 5000
-                    tango.setTarget(MOTORS,motors)
-                    time.sleep(0.2)
-                    motors = 6000
-                    tango.setTarget(MOTORS,motors)
+                    if (cX < 340 and cX > 300):
+                        motors = 5000
+                        tango.setTarget(MOTORS,motors)
+                        time.sleep(0.2)
+                        motors = 6000
+                        tango.setTarget(MOTORS,motors)
 
                 else:
                     motors = 6000
                     tango.setTarget(MOTORS, motors)
-                    body = 6000
+                    body = 5000
                     tango.setTarget(BODY, body)
                     target = 1
                     time.sleep(1)

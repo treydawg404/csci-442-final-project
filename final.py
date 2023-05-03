@@ -510,7 +510,7 @@ def goal_find(savedColor):
     pink_upper = np.array([255, 100, 255], np.uint8)
 
     count = 0
-    headTilt = 4800
+    headTilt = 5000
     tango.setTarget(4, headTilt)
 
     try:
@@ -573,16 +573,11 @@ def goal_find(savedColor):
                             motors = 6800
                             tango.setTarget(MOTORS, motors)
                     else:
-                        if(distance > 1):
-                            motors = 6000
-                            tango.setTarget(MOTORS,motors)
-                            body = 5200            
-                            tango.setTarget(BODY,body)
-                        else:
-                            body = 6000
-                            tango.setTarget(BODY,body)
-                            print ("Goal!")
-                            return
+                        motors = 6800
+                        tango.setTarget(MOTORS, motors)
+
+                    body = 5200
+                    tango.setTarget(BODY, body)
 
     finally:
 

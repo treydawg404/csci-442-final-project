@@ -505,7 +505,7 @@ def goal_find(savedColor):
     goalColor = savedColor
 
 
-    yellow_lower = np.array([100, 100, 0], np.uint8)
+    yellow_lower = np.array([200, 200, 25], np.uint8)
     yellow_upper = np.array([255, 255, 100], np.uint8)
 
     green_lower = np.array([40, 140, 40], np.uint8)

@@ -132,7 +132,10 @@ def orientation_cone():
                         if(distance > 1):
                             motors = 6000
                             tango.setTarget(MOTORS,motors)
-                            body = 5300            
+                            body = 5000            
+                            tango.setTarget(BODY,body)
+                            time.sleep(0.2)
+                            body = 6000            
                             tango.setTarget(BODY,body)
                         else:
                             body = 6000

@@ -24,6 +24,8 @@ def orientation_cone():
     tango = Controller()
     motors = 6000
     body = 6000
+    headTilt = 4000
+    tango.setTarget(HEADTILT, headTilt)
 
     # Configure depth and color streams
     pipeline = rs.pipeline()

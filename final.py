@@ -343,8 +343,8 @@ def color_find():
     # Convert images to numpy arrays
     color_image = np.asanyarray(color_frame.get_data())
 
-    #yellow_lower = np.array([120, 150, 150], np.uint8)
-    #yellow_upper = np.array([140, 255, 200], np.uint8)
+    yellow_lower = np.array([120, 150, 150], np.uint8)
+    yellow_upper = np.array([140, 255, 200], np.uint8)
 
     green_lower = np.array([40, 140, 40], np.uint8)
     green_upper = np.array([120, 255,120], np.uint8)
@@ -380,7 +380,7 @@ def color_find():
             for x in range(10000):
                 counter += 1
 
-            #yellow_mask = cv2.inRange(color_image, yellow_lower, yellow_upper)
+            yellow_mask = cv2.inRange(color_image, yellow_lower, yellow_upper)
         
             green_mask = cv2.inRange(color_image, green_lower, green_upper)
         
@@ -388,8 +388,8 @@ def color_find():
 
             kernel = np.ones((5, 5), "uint8")
             
-            #yellow_mask = cv2.dilate(yellow_mask, kernel)
-            #res_yellow = cv2.bitwise_and(color_image, color_image, mask = yellow_mask)
+            yellow_mask = cv2.dilate(yellow_mask, kernel)
+            res_yellow = cv2.bitwise_and(color_image, color_image, mask = yellow_mask)
             
             green_mask = cv2.dilate(green_mask, kernel)
             res_green = cv2.bitwise_and(color_image, color_image, mask = green_mask)
@@ -397,14 +397,14 @@ def color_find():
             pink_mask = cv2.dilate(pink_mask, kernel)
             res_pink = cv2.bitwise_and(color_image, color_image, mask = pink_mask)
         
-            #contours, hierarchy = cv2.findContours(yellow_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+            contours, hierarchy = cv2.findContours(yellow_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                 
-            #for pic, contour in enumerate(contours):
-            #    area = cv2.contourArea(contour)
-            #    if(area > 500):
-            #        savedColor = "yellow"
-            #        x, y, w, h = cv2.boundingRect(contour)
-            #        color_image = cv2.rectangle(color_image, (x, y), (x + w, y + h), (51, 255, 255), 2)
+            for pic, contour in enumerate(contours):
+                area = cv2.contourArea(contour)
+                if(area > 500):
+                    savedColor = "yellow"
+                    x, y, w, h = cv2.boundingRect(contour)
+                    color_image = cv2.rectangle(color_image, (x, y), (x + w, y + h), (51, 255, 255), 2)
                         
 
                     # Creating contour to track green color
@@ -433,7 +433,7 @@ def color_find():
                                             (x + w, y + h),
                                             (255, 77, 255), 2)
 
-            savedColor = "green"
+            savedColor = "yellow"
             if(savedColor != None):
                 print("COLOR DETECTED: " + savedColor)
                 return savedColor
@@ -589,7 +589,7 @@ def goal_find(savedColor):
             tango.setTarget(MOTORS, motors)
             body = 5200
             tango.setTarget(BODY, body)
-            if (count == 200):
+            if (count == 300):
                 motors = 6000
                 tango.setTarget(MOTORS, motors)
                 body = 6000
